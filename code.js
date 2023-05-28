@@ -1,6 +1,6 @@
 //This is the main JavaScript file for Lang (www.langstudy.tech)
 //Written by nwvbug- https://github.com/nwvbug 
-//GitHub Repo: https://github.com/nwvbug/Lang
+//GitHub Repo: https://github.com/lye-software/Lang
 
 //Global Variables (used by many functions)
 var words = ["devoir", "venir", "prendre", "partir", "suivre", "voir", "dire", "conduire", "boire", "savoir", "recevoir", "ouvrir", "vivre", "s'asseoir", "mettre", "connaître", "écrire"]
