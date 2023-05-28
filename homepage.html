@@ -346,6 +346,21 @@
             <div style="font-size: 10px;">By signing up for an account, you agree to the Lang Terms of Service, which can be found <a href='langlegal.html' style="color: var(--primary-dark)">here</a></div>
         </div>
     </div>
+
+    <div id="betaBlocker" class="popupContainer" style="display:flex; opacity:100; pointer-events: all;">
+        <div class="verticalFlex centerFlex lightGlow centerText popup">
+            <img src="assets/logos/FullLangLogo.png" style="height:10vh; margin: 10px;" alt='Lang Logo'> 
+            <div style="margin-top: 10px; color:red;">You are on <strong>beta.langstudy.tech</strong></div>
+            <div style="margin-top: 10px;">This version of Lang will not be as stable as normal Lang. If you need reliability, please go to https://langstudy.tech</div>
+            <div style="margin-top: 10px;">Press OK if you wish to proceed to Lang Beta.</div>
+            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%; margin-bottom: 0; background-color:red;" onclick="hideElement(document.getElementById('betaBlocker'))">Ok</div>
+            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%;" onclick="window.location.href='https://langstudy.tech'">Go to Stable</div>
+            <div style="font-size: 10px;">While all account activity should sync between Lang versions, Lye Software is not accountable for any loss of data as a result of using Lang Beta.</div>
+        </div>
+    </div>
+
+
+
     <div id="failedServerConnection" class="popupContainer" style="z-index:1000;">
         <div class="verticalFlex centerFlex lightGlow centerText popup">
             <img src="assets/logos/FullLangLogo.png" style="height:10vh; margin: 10px;" alt='Lang Logo'> 
