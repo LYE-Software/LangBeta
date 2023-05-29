@@ -169,13 +169,36 @@ function creatorModeSelect(){
     } else if(window.localStorage.getItem('editSheet')=="true") {
         console.log("Entering edit mode")
         customWords = window.localStorage.getItem("fullstudysheet")
-        let arrayText = customWords.split('\n')
+        var tmpss = parseFromJSON(customWords)
         window.localStorage.setItem("fullstudysheet", "");
         document.getElementById("topheader").innerHTML = "Editing "+window.localStorage.getItem("chosenSheet");
         document.getElementById("sstitle").innerHTML = window.localStorage.getItem("chosenSheet");
-        for (i = 0; i<arrayText.length; i++){
-            let wordPair = getRandomQuestion(customWords);  
-            createCreatorInput(wordPair[0], wordPair[1])
+        for (i = 0; i<tmpss.length; i++){
+            var term = tmpss.getNthTerm(i);
+            
+            if (term.isMulti){
+                createCreatorInput(term.question, i)
+                document.getElementById("tdc"+i).children[1].children[2].click();
+                //document.getElementById("tdc"+i).children[1].children[1].innerHTML = term.question;
+                console.log("WHAT IS THE TERM QUESTION:: "+term.question)
+                var firstTwo = document.getElementById("tdc"+i).children[2].children[1].querySelectorAll("div[data-input]");
+                firstTwo[0].innerHTML = term.terms[0];
+                firstTwo[1].innerHTML = term.answers[0];
+                var x = 3;
+                for (var j =1; j<term.length; j++){
+                    //continue making & filling after 1st alt
+                    document.getElementById("tdc"+i).children[1].children[2].click();
+                    var next = document.getElementById("tdc"+i).children[x].children[1].querySelectorAll("div[data-input]");
+                    next[0].innerHTML = term.terms[j]
+                    next[1].innerHTML = term.answers[j]
+                    x++;
+                }
+
+
+            } else {
+                console.log("why is that a zero??? term.answer: "+term.answer)
+                makeInputs("single", i, term.term, term.answer)
+            }
         }
     } else {
         console.log("Entering Quizlet Creator Mode")
@@ -194,13 +217,16 @@ function creatorModeSelect(){
 
 //creates new input fields for multi & single creators + assigns them ids
 var currentId = "";
-function makeInputs(version, idNum){
+function makeInputs(version, idNum, question, answer){
     var inputMap = new Map();
     inputMap.set("")
-
+    if (question == null && answer == null){
+        question = "";
+        answer = "";
+    }
     if (version=="single"){
-       
-        createCreatorInput("", "")
+        console.log("answer going in: "+answer)
+        createCreatorInput(question, answer)
     }
     else{
         
@@ -306,6 +332,7 @@ function createCreatorInput(term, definition) {
         answerInput.setAttribute("id",id2)
         answerInput.className="definition"
         answerInput.contentEditable="true";
+        console.log("def going in is the: "+definition)
         answerInput.innerHTML=definition;
         answerInput.setAttribute("data-text", "Answer");
         answerInput.setAttribute("data-input", "true");
@@ -465,18 +492,7 @@ function getRandomQuestion(textBlock) {
     console.log(random_question);
     var questionArray = JSON.parse(random_question);
     whatQuestion++;
-    if (whatQuestion >= arrayText.length){
-        whatQuestion=0;
-        if (doRandom == true && override != true){
-            for (let i = arrayText.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                const temp = arrayText[i];
-                arrayText[i] = arrayText[j];
-                arrayText[j] = temp;
-            }
-        }
-        console.log("whatquestion reset")
-    }
+   
 
     if (questionArray[0].includes("--image(")){
         let splitter = questionArray[0].split("--image(")
