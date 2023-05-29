@@ -173,16 +173,24 @@
         <div class="horizontalFlex centerFlex">
             <div class="noverticalshow correctIncorrect lightGlow" style="height: 0;"></div>
             <div class="answerContainer horizontalFlex centerFlex">
-                <div style="border-radius: 25px; flex: 2" class="horizontalFlex centerFlex buttonHover submitButton lightGlow" id="goButton" onclick="checkCustom()">> Go!</div>
+                <div style="border-radius: 25px; flex: 2" class="horizontalFlex centerFlex buttonHover submitButton lightGlow" id="goButton" onclick="checkSheet()">> Go!</div>
                 <div style="height: 10px; width: 10px;"></div>
-                <div style="border-radius: 25px;" class="horizontalFlex centerFlex buttonHover submitButton lightGlow" onclick="helpCustom()">Hint</div>
+                <div style="border-radius: 25px;" class="horizontalFlex centerFlex buttonHover submitButton lightGlow" onclick="helpMastery()">Hint</div>
             </div>
         </div>
     </div>
 </body>
-<script src="code.js"></script>
+<script src="javascript/mastery.js"></script>
+<script src="javascript/Studysheet.js"></script>
+<script src="javascript/utils.js"></script>
 <script>
+    var wage = document.getElementById("input");
+    wage.addEventListener("keydown", function (e) {
+        if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+            checkSheet()
+        }
+    });
     checkSettings();
-    onBtnPress("s");
+    startMastery();
 </script>
 </html>

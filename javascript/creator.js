@@ -2,31 +2,6 @@
 //GitHub Repo: https://github.com/lye-software/Lang
 
 
-//utility & display functions
-function hideElement(element) {
-    element.style.pointerEvents = "none";
-    element.style.opacity = "0";
-}
-
-function showElement(element) {
-    element.style.pointerEvents = "auto";
-    element.style.opacity = "1";
-}
-
-function showPopup(textToShow){
-    showElement(document.getElementById("popup"));
-    try{
-        hideElement(document.getElementById("savePopup"))
-    } catch (error){
-        console.log("not on creator")
-    }
-    document.getElementById("popupText").innerHTML = textToShow;
-}
-
-
-
-
-
 
 //saving & creator stuff
 function saveToCloud(){
@@ -78,13 +53,23 @@ function saveToCloud(){
         }
         var tester = 0;
         for (var i = 0; i<overallDivArray.length; i++){
+            var hasImage = false;
             var currentDiv = overallDivArray[i];
             if (currentDiv.getAttribute("data-multi") == "false"){
                 var textInputs = currentDiv.querySelectorAll("div[data-input]");
                 console.log("textinputs: "+textInputs)
                 console.log("textinput length "+textInputs.length)
                 console.log("textinput vals: "+textInputs[0].innerHTML+" | "+textInputs[1].innerHTML)
-                const term = new Term(false, textInputs[0].innerHTML, textInputs[1].innerHTML);
+                if (currentDiv.children[0].children[0].className == "showImageHolder"){
+                    hasImage = true;
+                }
+                const term = new Term(false, textInputs[0].innerHTML, textInputs[1].innerHTML, hasImage);
+                if (hasImage){
+                    var imageUrl = currentDiv.children[0].children[0].src
+                    imageUrl = imageUrl.split("/")
+                    imageUrl = imageUrl[imageUrl.length-1];
+                    term.addImage(imageUrl)                
+                }
                 studysheet.add(term);
             } else {
                 var textInputs = currentDiv.querySelectorAll("div[data-input]");
@@ -100,7 +85,16 @@ function saveToCloud(){
                         answers.push(textInputs[j].innerHTML)
                     }
                 }
-                const term = new MultiTerm(terms, answers, textInputs[0].innerHTML)
+                if (currentDiv.children[0].children[0].className == "showImageHolder"){
+                    hasImage = true;
+                }
+                const term = new MultiTerm(terms, answers, textInputs[0].innerHTML, hasImage)
+                if (hasImage){
+                    var imageUrl = currentDiv.children[0].children[0].src
+                    imageUrl = imageUrl.split("/")
+                    imageUrl = imageUrl[imageUrl.length-1];
+                    term.addImage(imageUrl)
+                }
                 studysheet.add(term)
 
             }
@@ -150,7 +144,7 @@ function saveToCloud(){
                 };
                 var data = toUpload;
                 console.log("sending " + data + " to " + url);
-                //xhr.send(data);
+                xhr.send(data);
             }
             
         }
@@ -357,6 +351,7 @@ function createCreatorInput(term, definition) {
             parent = this.parentNode  
             grandparent = parent.parentNode         
             toPass = grandparent;
+            grandparent.setAttribute("data-image","true")
             console.log("images go here")
             invokeFilereader(toPass)
         }
@@ -445,6 +440,63 @@ function showSavePopup(){
     }
     
 }
+
+var randomized = false;
+var setup = true;
+var continued = false;
+var whatQuestion = 0;
+
+function getRandomQuestion(textBlock) {
+    console.log("random question ran")
+    console.log("The stuff going into random q is: "+textBlock)
+    
+    if (setup == true){
+        arrayText = textBlock.split('\n')
+        setup = false;
+    }
+    
+    console.log("arr text fdaf "+arrayText)
+   
+    
+    let random_question = arrayText[whatQuestion];
+    console.log(arrayText)
+    console.log("what quest " + whatQuestion)
+    console.log("array text length "+arrayText.length)
+    console.log(random_question);
+    var questionArray = JSON.parse(random_question);
+    whatQuestion++;
+    if (whatQuestion >= arrayText.length){
+        whatQuestion=0;
+        if (doRandom == true && override != true){
+            for (let i = arrayText.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                const temp = arrayText[i];
+                arrayText[i] = arrayText[j];
+                arrayText[j] = temp;
+            }
+        }
+        console.log("whatquestion reset")
+    }
+
+    if (questionArray[0].includes("--image(")){
+        let splitter = questionArray[0].split("--image(")
+        let image = splitter[1]
+        image = image.substring(0, 64);
+        let urlForImage = "https://backend.langstudy.tech:444/"+window.localStorage.getItem("usertoken")+"/image/get/"+image;
+        questionArray.push(urlForImage);
+        questionArray[0] = splitter[0] + image.substring(64, image.length);
+        
+        
+    }
+
+    return questionArray
+    
+    
+    
+    // document.getElementById('file').innerText = this.result; // places text into webpage
+}
+
+
 
 
 

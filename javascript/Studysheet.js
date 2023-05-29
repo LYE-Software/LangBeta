@@ -1,14 +1,21 @@
+function parseFromJSON(rawjson){
+    console.log("PARSING STUDYSHEET FROM JSON: "+rawjson)
+    var recievedStudysheet = Object.assign(new Studysheet, JSON.parse(rawjson));
+    recievedStudysheet.parseTerms();
+    return recievedStudysheet;
+}
+
+
 class Studysheet {
     
     constructor(name){
         this.name = name;
         this.terms = []
-        
+        this.length = 0;
     }
     add(term){
-
-        
         this.terms.push(term)
+        this.length++;
 
     }
     getNthTerm(n){
@@ -33,16 +40,26 @@ class Studysheet {
             }
         }
     }
+
+    randomize(){
+        for (let i = this.terms.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            const temp = this.terms[i];
+            this.terms[i] = this.terms[j];
+            this.terms[j] = temp;
+        }
+    }
     
 }
 
 class Term {
 
-    constructor(isMulti, term, answer){
+    constructor(isMulti, term, answer, hasImage){
         console.log("Term Created")
         this.isMulti = isMulti;
         this.term = term;
         this.answer = answer;
+        this.hasImage = hasImage;
         var data = {
             "question":term,
             "answer":answer
@@ -61,14 +78,18 @@ class Term {
         return false;
     }
 
+    addImage(src){
+        this.imageSrc = src;
+    }
+
     
 }
 
 class MultiTerm extends Term{
     
 
-    constructor(terms, answers, question){
-        super(true);
+    constructor(terms, answers, question, hasImage){
+        super(true, "multi", "multi", hasImage);
         this.terms = terms;
         this.answers = answers;
         this.question = question;
@@ -85,7 +106,7 @@ class MultiTerm extends Term{
 
 
     multiCheck(against, i){
-        if (defs[i].get("question") == against){
+        if (this.answers[i] == against){
             return true
         }
         return false
