@@ -43,6 +43,7 @@ function startMastery(){
 
 
 function runSheet(){
+    document.getElementById("term_image").style.display = "none";
     if (qNum >= sheet.length){
         showElement(document.getElementById("completedMode"))
         qNum = 0;
@@ -52,11 +53,24 @@ function runSheet(){
     } else {
         term = sheet.getNthTerm(qNum);
         if (!term.isMulti){
+            document.getElementById("displayWord").style.display = "flex";
             document.getElementById("displayWord").innerHTML = term.term;
             checkAsMulti = false;
+            document.getElementById("multiQ").style.display = "none";
+            document.getElementById("multiAlt").style.display = "none";
+
         } else {
-            document.getElementById("displayWord").innerHTML = term.terms[multiNum];
+            document.getElementById("multiQ").style.display = "flex";
+            document.getElementById("multiAlt").style.display = "flex";
+            document.getElementById("displayWord").style.display = "none";
+            document.getElementById("multiAlt").innerHTML = term.terms[multiNum];
+            document.getElementById("multiQ").innerHTML = term.question;
             checkAsMulti = true;
+        }
+
+        if (term.hasImage){
+            document.getElementById("term_image").children[0].src = term.imageSrc;
+            document.getElementById("term_image").style.display = "";
         }
     }
     
