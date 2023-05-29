@@ -830,7 +830,7 @@ function goToSSPage(){
     console.log("index is: "+index)
     console.log("newarr[index] is: "+newarr[index])
     window.localStorage.setItem("chosenSheet", newarr[index])
-    window.location.href="studysheetpage.html";
+    window.location.href="studysheetpage-new.html";
 }
 
 async function deleteSS(){
