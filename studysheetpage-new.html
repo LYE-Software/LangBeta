@@ -69,6 +69,9 @@
             width: calc(95vw - 75px);
         }
 
+        .leftSidebarContainer:has(div:hover) {
+            left: 0px !important;
+        }
 
         /* SIDEBARS */
         .leftSidebarContainer {
@@ -78,8 +81,6 @@
             bottom: 0px;
             width: 350px;
             height: 82vh;
-
-            pointer-events: none;
 
             display: flex;
             flex-direction: column;
