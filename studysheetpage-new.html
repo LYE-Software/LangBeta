@@ -1,0 +1,315 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <style>
+        .mainContainer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }  
+
+        .termDefTitle {
+            padding-left: 15px;
+            padding-right: 15px;
+            box-sizing: border-box;
+            display: flex;
+        }
+
+        .termDefTitle > div {
+            flex: 1;
+            color: var(--primary-light);
+        }
+        
+        .termListMain {
+            max-width: 650px;
+            width: 95vw;
+            box-sizing: border-box;
+        }
+
+        .termListMain > div > div {
+            display: flex;
+            width: 100%;
+            background-color: var(--primary-light);
+            padding: 15px;
+            box-sizing: border-box;
+            border-radius: 15px;
+
+            margin-top: 15px;
+            margin-bottom: 15px;
+
+            position: relative;
+        }
+
+        .multiEntry > img {
+            width: 50px;
+            height: 20px;
+
+            position: absolute;
+            left: -60px;
+        }
+
+        .termListMain > div > div > div {
+            flex: 1;
+        }
+
+        .multiTermDef > div {
+            margin-top: 5px !important;
+            margin-bottom: 5px !important;
+        }
+
+        .multiTermDef > .multiEntry {
+            margin-left: 75px;
+            max-width: calc(650px - 75px);
+            width: calc(95vw - 75px);
+        }
+
+        .leftSidebarContainer:has(div:hover) {
+            left: 0px !important;
+        }
+
+        /* SIDEBARS */
+        .leftSidebarContainer {
+            position: fixed;
+
+            left: -225px;
+            bottom: 0px;
+            width: 350px;
+            height: 82vh;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;    
+
+            z-index: 1000;
+            transition: left 0.25s ease-in-out;
+        }
+
+        .whiteBackdrop {
+            background-color: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .leftSidebarContainer > div {
+            width: 100%;
+            height: 550px;
+            z-index: 1000;
+
+            display: flex;
+
+            border-radius: 0px 35px 35px 0px;
+        }
+
+        .leftSidebarPreview {
+            width: 125px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .leftSidebarPreview > img {
+            width: 100px;
+            height: 100px;
+            background-color: rgb(0, 0, 255);
+        }
+
+        .leftSidebarOptions {
+            flex: 1;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .leftSidebarOptions > div {
+            text-align: center;
+            height: 100px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .leftSidebarOptions > div > button {
+            background-color: white;
+            padding: 10px;
+            width: 195px;
+            border-radius: 15px;
+            border: 5px solid var(--primary-light);
+
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+        }
+
+
+
+        .rightSidebarContainer {
+            position: fixed;
+
+            right: 0px;
+            bottom: 0px;
+            width: 125px;
+            height: 82vh;
+            margin-right: 10px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rightSidebarContainer > div {
+            width: 100%;
+            height: 550px;
+            z-index: 1000;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 35px;
+        }
+
+        .rightSidebarContainer > div > button {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 5px solid var(--primary-light);
+            margin: 5px;
+            background-color: white;
+        }
+
+        .rightSidebarContainer > div > button > img {
+            background-color: blue;
+            height: 75px;
+            width: 75px;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="content">
+        <div id="header" class="header horizontalFlex">
+            <div style="cursor:pointer;">
+                <img style="height: 10vh;" src="assets/logos/FullLangLogo.png" alt='Lang Logo'>
+            </div>
+            <div id="homeusername" class="noverticalshow button verticalFlex" style="cursor: pointer" onclick="window.location.href='settings.html'">Loading your name...</div>
+        </div>
+        <div class="functionRow horizontalFlex" style="justify-content: start;">
+            <div class="functionRowItem">
+                Create
+                <div class="functionRowItemContents" style="z-index:500;">
+                    <div onclick="window.location.href='creator.html'">New...</div>
+                    <div onclick="window.location.href='quizletconvert.html'">From Quizlet</div>
+                    <div onclick="window.location.href='memriseconvert.html'">From Memrise</div>
+                </div>
+            </div>
+            <div class="functionRowItem" style="display:none;" id="localAdvanced">
+                Local
+                <div class="functionRowItemContents" style="z-index:500;">
+                    <div onclick="window.location.href='train.html'">Train</div>
+                    <div onclick="window.location.href='mastery-alt.html'">Mastery</div>
+                    <div onclick="window.location.href='multiplechoice.html'">Multiple Choice</div>
+                    <div onclick="window.location.href='flashcardsnewtml'">Flashcards</div>
+                    <div onclick="window.location.href='practestnew.html'">Practice Test</div>
+                    <div onclick="window.location.href='speed.html'">Speed Review</div>
+                </div>
+            </div>
+            <div class="functionRowItem">
+                Settings
+                <div class="functionRowItemContents" style="z-index:500;">
+                    <div onclick="window.open('https://lye.software/manageuser')">Account Settings</div>
+                    <div onclick="window.location.href='settings.html'">Lang Settings</div>
+                </div>
+            </div>
+            <div class="functionRowItem">
+                About
+                <div class="functionRowItemContents" style="z-index:500;">
+                    <div onclick="window.location.href='about-new.html'">About Lang</div>
+                    <div onclick="window.location.href='updates.html'">Updates</div>
+                    <div onclick="window.location.href='langlegal.html'">Legal & Credits</div>
+                    <div onclick="window.location.href='langAssistantFAQ.html'">About Lang Assistant</div>
+                </div>
+            </div>
+            <div class="functionRowItem">
+                Help
+                <div class="functionRowItemContents" style="z-index:500;">
+                    <div onclick="window.location.href='https://github.com/LYE-software/Lang/issues'">GitHub Issues</div>
+                </div>
+            </div>
+            <notdiv class="flexSpacer"></notdiv>
+        </div>
+    </div>
+
+    <div class="leftSidebarContainer">
+        <div class="whiteBackdrop">
+            <div class="leftSidebarOptions">
+                <div><button>Train</button></div>
+                <div><button>Mastery</button></div>
+                <div><button>Practice Test</button></div>
+                <div><button>Speed Review</button></div>
+                <div><button>Multiple Choice</button></div>
+            </div>
+            <div class="leftSidebarPreview">
+                <img src="">
+            </div>
+        </div>
+    </div>
+
+    <div class="rightSidebarContainer">
+        <div class="whiteBackdrop">
+            <button><img src=""></button>
+            <button><img src=""></button>
+            <button><img src=""></button>
+            <button><img src=""></button>
+        </div>
+    </div>
+
+    <div class="mainContainer">
+        <div class="termList">
+            <div class="termDefTitle"><div>Term</div><div>Definition</div></div>
+            <div class="termListMain">
+                <div class="termdef">
+                    <div>
+                        <div>Shinunoga Ewa</div>
+                        <div>I would rather die</div>
+                    </div>
+                </div>
+                <div class="multiTermDef">
+                    <div>浮</div>
+                    <div class="multiEntry">
+                        <img src="assets/icons/Arrow 2.svg">
+                        <div>Reading</div>
+                        <div>うわ</div>
+                    </div>
+                    <div class="multiEntry">
+                        <img src="assets/icons/Arrow 2.svg">
+                        <div>Meaning</div>
+                        <div>Floating</div>
+                    </div>
+                </div>
+                <div class="termdef">
+                    <div>
+                        <div>Sussy</div>
+                        <div>Amogus</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="flashcards" style="display: none;">
+
+        </div>
+    </div>
+
+</body>
+</html>
