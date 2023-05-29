@@ -133,3 +133,32 @@ function makeMulti(multi, i){
     }
 }
     
+
+
+async function shareLink(){
+    document.getElementById("sharinglink").style.display = ""
+    document.getElementById("sharinglink").style.opacity = 1;
+    document.getElementById("sharinglink").style.pointerEvents = "all";
+    var url_string = window.location.href; //window.location.href
+    var url = new URL(url_string);
+    if(url.searchParams.get("userid") != null){
+        sessionid = url.searchParams.get("userid")
+        chosensheet = url.searchParams.get("sheetName")
+        document.getElementById("linkholder").innerHTML = url;
+    }
+    else{
+        console.log("insharelink")
+        
+        lyeUrl = "https://lye.software/idfromsession/"+window.localStorage.getItem("usertoken")
+        console.log(lyeUrl)
+        tempTok = await httpGet(lyeUrl, true)
+        
+        sheetName = window.localStorage.getItem("chosenSheet").replaceAll(" ", "%20");
+        sheetName = sheetName.replaceAll("&", "%26")
+        console.log("Replaced forbidden characters")
+        url = "https://langstudy.tech/studysheetpage.html?userid="+tempTok+"&sheetName="+sheetName;
+        document.getElementById("linkholder").innerHTML = url;
+        console.log(url)
+    }
+    
+}
