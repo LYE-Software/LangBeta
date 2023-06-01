@@ -1,8 +1,6 @@
 
 async function doPreviewAndLocal(){
 
-    
-
     console.log("in dopreview")
     document.getElementById("homeusername").innerHTML = localStorage.getItem("customusername");
 
@@ -81,18 +79,34 @@ async function doPreviewAndLocal(){
     // console.warn("testing bruh why is it doing this")
     
     console.log("og sheet: "+sheet)
-    
+    var newSheet = parseFromJSON(sheet);
+    if (newSheet.length<4){
+        console.log("removing...")
+        document.getElementById("trainbutton").style.backgroundColor = "#a0a0a0";
+        document.getElementById("multiplechoicebutton").style.backgroundColor = "#a0a0a0";
+        document.getElementById("trainbutton").onclick = function(){
+            document.getElementById('tooFewTerms').style.pointerEvents = "all";
+            document.getElementById('tooFewTerms').style.opacity = 1;
+        }
+        document.getElementById("multiplechoicebutton").onclick = function(){
+            document.getElementById('tooFewTerms').style.pointerEvents = "all";
+            document.getElementById('tooFewTerms').style.opacity = 1;
+        }
+        document.getElementById("trainbutton").style.borderColor = "#a0a0a0"
+        document.getElementById("multiplechoicebutton").style.borderColor = "#a0a0a0"
+    }
+
     window.localStorage.setItem("fullstudysheet", sheet)
-    displaySheet(sheet)
+    displaySheet(newSheet)
     document.getElementById("noclickdiv").style.opacity = "0";
     document.getElementById("noclickdiv").style.pointerEvents = "none";
 
+    
 }
 
 
 
-function displaySheet(sheet){
-    var newSheet = parseFromJSON(sheet);
+function displaySheet(newSheet){
     for (var i = 0; i<newSheet.length; i++){
         if (newSheet.getNthTerm(i).isMulti){
             makeMulti(newSheet.getNthTerm(i), i);

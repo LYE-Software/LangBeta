@@ -49,6 +49,10 @@ class Studysheet {
             this.terms[j] = temp;
         }
     }
+
+    remove(n){
+        return terms.splice(n, 1);
+    }
     
 }
 
