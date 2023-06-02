@@ -51,7 +51,7 @@ class Studysheet {
     }
 
     remove(n){
-        return terms.splice(n, 1);
+        return this.terms.splice(n, 1);
     }
     
 }

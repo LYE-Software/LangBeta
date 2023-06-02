@@ -1,5 +1,4 @@
 
-//utility & display functions
 function hideElement(element) {
     element.style.pointerEvents = "none";
     element.style.opacity = "0";
@@ -20,3 +19,6 @@ function showPopup(textToShow){
     document.getElementById("popupText").innerHTML = textToShow;
 }
 
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+ }
