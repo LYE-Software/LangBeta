@@ -71,6 +71,7 @@ async function doPreviewAndLocal(){
     }
 
     if (sheet == "" || sheet == null || sheet == "invalidsession"){
+        console.log("could not find")
         document.getElementById("unableToFind").style.opacity = "1";
         document.getElementById("unableToFind").style.pointerEvents = "all"; 
     }
@@ -100,7 +101,8 @@ async function doPreviewAndLocal(){
     displaySheet(newSheet)
     document.getElementById("noclickdiv").style.opacity = "0";
     document.getElementById("noclickdiv").style.pointerEvents = "none";
-
+    body = document.getElementsByTagName("body")[0];
+    body.style.background = "linear-gradient(180deg, #001945 35.94%, #000011 100%)"
     
 }
 

@@ -1,9 +1,26 @@
+// ui resizing garb
+addEventListener("resize", (event) => {});
+
+onresize = (event) => {
+    if (window.innerHeight > window.innerWidth){
+        console.log("we vertical")
+        document.getElementById("shelf").style.display = "none"
+    } else {
+        console.log("we horizontal")
+        document.getElementById("shelf").style.display = ""
+    }
+};
+
+
+
 function checkSettings(){
 
     let randomthing = window.localStorage.getItem("random");
     if (randomthing == "true"){
         doRandom = true;
     }
+
+    
 }
 
 var rawJson;
@@ -15,7 +32,19 @@ var checkAsMulti;
 var term;
 var sheet;
 function startMastery(){
-
+    var wage = document.getElementById("input");
+    wage.addEventListener("keydown", function (e) {
+        if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+            checkSheet()
+        }
+    });
+    if (window.innerHeight > window.innerWidth){
+        console.log("we vertical")
+        document.getElementById("shelf").style.display = "none"
+    } else {
+        console.log("we horizontal")
+        document.getElementById("shelf").style.display = ""
+    }
     if (qNum == 0){
         rawJson = window.localStorage.getItem("fullstudysheet")
         document.title = window.localStorage.getItem("chosenSheet") + " | Lang"
@@ -28,9 +57,9 @@ function startMastery(){
     }
 
     document.getElementById("term_image").style.display = "none";
-    document.getElementById("crctst").innerHTML = "Correct: " + correctCounter
-    document.getElementById("incorrect").innerHTML = "Incorrect: " + incorrectCounter
-    document.getElementById("hint").classList.remove("showHint");
+    // document.getElementById("crctst").innerHTML = "Correct: " + correctCounter
+    // document.getElementById("incorrect").innerHTML = "Incorrect: " + incorrectCounter
+    //document.getElementById("hint").classList.remove("showHint");
 
     input = document.getElementById("input")
     input.setAttribute("autocorrect", "off")
@@ -43,6 +72,9 @@ function startMastery(){
 
 
 function runSheet(){
+    
+    checkSettings();
+    startMastery();
     document.getElementById("term_image").style.display = "none";
     if (qNum >= sheet.length){
         showElement(document.getElementById("completedMode"))
@@ -53,17 +85,13 @@ function runSheet(){
     } else {
         term = sheet.getNthTerm(qNum);
         if (!term.isMulti){
-            document.getElementById("displayWord").style.display = "flex";
             document.getElementById("displayWord").innerHTML = term.term;
             checkAsMulti = false;
             document.getElementById("multiQ").style.display = "none";
-            document.getElementById("multiAlt").style.display = "none";
 
         } else {
             document.getElementById("multiQ").style.display = "flex";
-            document.getElementById("multiAlt").style.display = "flex";
-            document.getElementById("displayWord").style.display = "none";
-            document.getElementById("multiAlt").innerHTML = term.terms[multiNum];
+            document.getElementById("displayWord").innerHTML = term.terms[multiNum];
             document.getElementById("multiQ").innerHTML = term.question;
             checkAsMulti = true;
         }
@@ -79,8 +107,8 @@ function runSheet(){
 
 function checkSheet(){
     buttonStyling = document.getElementById("goButton")
-    document.getElementById("hintText").innerHTML = "";
-    document.getElementById("hint").classList.remove("showHint");
+    //document.getElementById("hintText").innerHTML = "";
+    //document.getElementById("hint").classList.remove("showHint");
     usrInput = document.getElementById("input").value.toLowerCase().trim();
     var result;
     if (usrInput == ""){

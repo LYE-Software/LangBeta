@@ -8,6 +8,86 @@
     <link rel="icon" href="circular lang icon.png">
 
     <style>
+        .leftSidebarContainer:has(div:hover) {
+            right: 0px !important;
+        }
+
+        /* SIDEBARS */
+        .leftSidebarContainer {
+            position: fixed;
+
+            right: -225px;
+            bottom: 0px;
+            width: 350px;
+            height: 82vh;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;    
+
+            z-index: 499;
+            transition: right 0.25s ease-in-out;
+        }
+
+        .whiteBackdrop {
+            background-color: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .leftSidebarContainer > div {
+            width: 100%;
+            height: 350px;
+            z-index: 1000;
+
+            display: flex;
+
+            border-radius: 35px 0px 0px 35px;
+        }
+
+        .leftSidebarPreview {
+            width: 125px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .leftSidebarPreview > img {
+            width: 100px;
+            height: 100px;
+        }
+
+        .leftSidebarOptions {
+            flex: 1;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .leftSidebarOptions > div {
+            text-align: center;
+            height: 100px;
+            
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .leftSidebarOptions > div > button {
+            background-color: white;
+            padding: 10px;
+            width: 195px;
+            border-radius: 25px;
+            border: 2px solid var(--primary-light);
+            cursor:pointer;
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+        }
+
         .panelContainer {
             height: 100vh;
             width: 100vw;
@@ -27,7 +107,7 @@
             border-radius: 25px;
 
             color: var(--primary-dark);
-            background-color: var(--primary-light);
+            /* background-color: var(--primary-light); */
         }
 
         .correctIncorrect > div {
@@ -122,13 +202,24 @@
             border-top-right-radius: 0px;
             border-top-left-radius: 0px;
         }
+
+        .whiteBackdrop {
+            background-color: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
         
     </style>
 </head>
 <body>
     <a href="studysheetpage-new.html">
-        <img src="assets/icons/back.svg" style="left:0; top:0; position: absolute; width: 150px; height: auto;">
-        <img src="assets/logos/lang-wheat.png"  style="position:absolute; width:100px; right:0; top:0; margin:20px;" onclick="window.location.href='homepage.html'">
+        
+        <img src="assets/logos/lang-wheat.png"  style="position:absolute; width:100px; right:0; margin:20px;" onclick="window.location.href='homepage.html'">
+        <img src="assets/icons/back.svg" style="top:0; left:0;  position: absolute; width: 150px; height: auto;">
+
+        
+        
     </a>
     <div id="completedMode" class="absolute horizontalFlex centerFlex fullAbsolute" style="transition: all 0.15s ease-in-out; z-index:500; opacity: 0; pointer-events: none; background-color: rgba(0, 0, 0, 0.5);">
         <div class="verticalFlex centerFlex lightGlow centerText" style="z-index:500; border-radius: 15px; padding: 20px; width: 30vw; background-color: wheat;">
@@ -171,7 +262,7 @@
         </div>
         <div class="horizontalFlex centerFlex">
 
-            <div class="noverticalshow correctIncorrect lightGlow">
+            <div class="noverticalshow correctIncorrect lightGlow whiteBackdrop">
                 <div id="crctst">Correct</div>
                 <div id="incorrect">Incorrect</div>
             </div>
@@ -182,10 +273,41 @@
         <div class="horizontalFlex centerFlex">
             <div class="noverticalshow correctIncorrect lightGlow" style="height: 0;"></div>
             <div class="answerContainer horizontalFlex centerFlex">
-                <div style="border-radius: 25px; flex: 2" class="horizontalFlex centerFlex buttonHover submitButton lightGlow" id="goButton" onclick="checkSheet()">> Go!</div>
+                <div style="border-radius: 25px; flex: 2" class="horizontalFlex centerFlex buttonHover submitButton lightGlow " id="goButton" onclick="checkSheet()">> Go!</div>
                 <div style="height: 10px; width: 10px;"></div>
-                <div style="border-radius: 25px;" class="horizontalFlex centerFlex buttonHover submitButton lightGlow" onclick="helpMastery()">Hint</div>
+                <div style="border-radius: 25px;" class="horizontalFlex centerFlex buttonHover submitButton lightGlow whiteBack" onclick="helpMastery()">Hint</div>
             </div>
+        </div>
+    </div>
+    <div class="leftSidebarContainer">
+        <div class="whiteBackdrop">
+            <div class="leftSidebarPreview"> 
+                <img src="assets/icons/options.png" style="height:5vw; width:5vw;">
+            </div>
+            <div class="leftSidebarOptions">
+                <div style="font-weight:bolder;">Options</div>
+                <div class="horizontalFlex" style="width:250px;">
+                    <div style="width:50px; margin:20px;">
+                        <label class="switch" style="display: inline-block"> 
+                            <input id = "randomchoice" type="checkbox" onclick="makeRandom()">
+                            <span class="OPslider round" ></span>
+                        </label>
+                    </div>
+                    <div style="width:100px;">Randomized Order of Questions</div>
+                    
+                </div>
+                <div class="horizontalFlex" style="width:250px;">
+                    <div style="width:50px; margin:20px;">
+                        <label class="switch" style="display: inline-block"> 
+                            <input id = "randomchoice" type="checkbox" onclick="makeRandom()">
+                            <span class="OPslider round" ></span>
+                        </label>
+                    </div>
+                    <div style="width:100px;">Timed</div>
+                    
+                </div>
+            </div>
+            
         </div>
     </div>
 </body>
