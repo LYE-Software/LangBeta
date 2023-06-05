@@ -140,19 +140,8 @@
         }
 
         .leftSidebarOptions > div > button {
-            background-color: white;
-            padding: 10px;
             width: 175px;
-            border-radius: 25px;
-            border: 2px solid var(--primary-light);
-            cursor:pointer;
-            font-family: 'Poppins', sans-serif;
-            font-size: 17px;
-
-            margin: 10px;
         }
-
-
 
         .rightSidebarContainer {
             position: fixed;
@@ -185,10 +174,7 @@
             width: 75px;
             height: 75px;
             border-radius: 50%;
-            border: 2px solid var(--primary-light);
             margin: 5px;
-            background-color: white;
-            cursor:pointer;
         }
 
         .rightSidebarContainer > div > button > img {
@@ -271,11 +257,11 @@
     <div class="leftSidebarContainer">
         <div class="whiteBackdrop">
             <div class="leftSidebarOptions">
-                <div><button class="lightGlow" id="trainbutton" onclick="window.location.href='train.html'">Train</button></div>
-                <div><button class="lightGlow" onclick="window.location.href='mastery-alt.html'">Mastery</button></div>
-                <div><button class="lightGlow" onclick="window.location.href='practestnew.html'">Practice Test</button></div>
-                <div><button class="lightGlow" onclick="window.location.href='speed.html'">Speed Review</button></div>
-                <div><button class="lightGlow" id="multiplechoicebutton" onclick="window.location.href='multiplechoice.html'">Multiple Choice</button></div>
+                <div><button class="lightGlow newbutton" id="trainbutton" onclick="window.location.href='train.html'">Train</button></div>
+                <div><button class="lightGlow newbutton" onclick="window.location.href='mastery-alt.html'">Mastery</button></div>
+                <div><button class="lightGlow newbutton" onclick="window.location.href='practestnew.html'">Practice Test</button></div>
+                <div><button class="lightGlow newbutton" onclick="window.location.href='speed.html'">Speed Review</button></div>
+                <div><button class="lightGlow newbutton" id="multiplechoicebutton" onclick="window.location.href='multiplechoice.html'">Multiple Choice</button></div>
             </div>
             <div class="leftSidebarPreview"> 
                 <img src="assets/icons/Studying Icon.png">
@@ -285,10 +271,10 @@
 
     <div class="rightSidebarContainer">
         <div class="whiteBackdrop">
-            <button class="lightGlow" onclick="initializeEdit()"><img src="assets/icons/edit.png"></button>
-            <button class="lightGlow" onclick="shareLink()"><img src="assets/icons/share.png"></button>
-            <button class="lightGlow"><img src="assets/icons/flashcards.png" style="width:65px; height:65px; margin-top:5px;"></button>
-            <button class="lightGlow" onclick="window.location.href='settings.html'"><img src="assets/icons/settings.png"></button>
+            <button class="lightGlow newbutton" onclick="initializeEdit()"><img src="assets/icons/edit.png"></button>
+            <button class="lightGlow newbutton" onclick="shareLink()"><img src="assets/icons/share.png"></button>
+            <button class="lightGlow newbutton"><img src="assets/icons/flashcards.png" style="width:65px; height:65px; margin-top:5px;"></button>
+            <button class="lightGlow newbutton" onclick="window.location.href='settings.html'"><img src="assets/icons/settings.png"></button>
         </div>
     </div>
 
