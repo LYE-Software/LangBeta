@@ -53,8 +53,9 @@
     }
 
     .bar{
-        width: 80vw;
+        width: 0vw;
         height:2vh;
+        transition: 0.5s;
     }
     .redGlow {
         -webkit-box-shadow:0px 0px 50px 0px rgb(143, 10, 10);
@@ -97,7 +98,7 @@
     .rightSidebarContainer > div {
         width: 100%;
         height: 450px;
-        z-index: 1000;
+        z-index: 2000;
 
         display: flex;
         flex-direction: column;
@@ -155,20 +156,53 @@
     .resize{
         transition: all 0.35s ease-in-out;
     }
+    
+.absolute {
+    position: absolute;
+}
+
+.fullAbsolute {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+.button {
+    border-radius: 1000000px;
+    height: 3vh;
+    width: 10vw;
+    padding: 1vh;
+    background-color: var(--primary-dark);
+    margin: 2vh;
+    cursor: pointer;
+    user-select: none;
+}
+.buttonHoverDark {
+    transition: all 0.25s ease-in-out;
+    background-color: var(--primary-dark);
+    color: var(--primary-light);
+    border: 3px solid var(--primary-dark);
+}
+
+.buttonHoverDark:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+}
 </style>
 <body onload="startMastery()">
-    <div class="bar lightGlow" style="background-color: wheat; position:absolute;"></div>
-    
+    <div class="bar lightGlow" style="background-color: wheat; position:absolute;" id="progBar"></div>
+    <div style="width:100vw; text-align: center; color:white; margin-top:10px; position:absolute; font-size:20px; opacity:0; pointer-events: none;" id="endless"><Strong>Endless Mode</Strong></div>
     <div class="horizontalFlex" style="height:90vh;">
-        <div class="rightSidebarContainer verticalFlex" style="" id="shelf">
+        <div class="rightSidebarContainer verticalFlex" style="z-index:1100;" id="shelf">
+            
             <img src="assets/logos/lang-wheat.png" style="height:10vh; position:fixed; top:3.5vh; cursor:pointer;" onclick="window.location.href='homepage.html'">
 
-            <div class="whiteBackdrop">
-                <button class="lightGlow" onclick="window.location.href='studysheetpage-new.html'"><img src="assets/icons/blackBackButton.png"></button>
-                <button class="lightGlow" onclick=""><img src="assets/icons/shuffle.png"></button>
-                <button class="lightGlow"><img src="assets/icons/timer.png"></button>
-                <button class="lightGlow" onclick="stats"><img src="assets/icons/stats.png"></button>
-                <button class="lightGlow" onclick="window.location.reload()"><img src="assets/icons/reset.png"></button>
+            <div class="whiteBackdrop" >
+                <button class="lightGlow" onclick="window.location.href='studysheetpage-new.html'" ><img src="assets/icons/blackBackButton.png"></button>
+                <button class="lightGlow" onclick="showElement(document.getElementById('shuffling'))" ><img src="assets/icons/shuffle.png"></button>
+                <button class="lightGlow" onclick="showElement(document.getElementById('timerPopup'))"><img src="assets/icons/timer.png"></button>
+                <button class="lightGlow" style="cursor:pointer;" onclick="stats()" ><img src="assets/icons/stats.png"></button>
+                <button class="lightGlow" onclick="showElement(document.getElementById('restarting'))"><img src="assets/icons/reset.png"></button>
 
             </div>
         </div>
@@ -186,10 +220,10 @@
                 
                 <input class="inputArea" id="input" style="width:100%;">
                 <div class = "horizontalFlex centerFlex resize" style=" width:100%; height:10vh; justify-content: space-between; margin-top:10px;">
-                    <div class="centerFlex horizontalFlex" style="width:60%; height:7vh; background-color: wheat; border-radius:20px; font-weight:bolder; font-size:30px;" onclick="checkSheet()">
+                    <div class="centerFlex horizontalFlex" style="width:60%; height:7vh; background-color: wheat; border-radius:20px; font-weight:bolder; font-size:30px; cursor:pointer;" id="goButton" onclick="checkSheet()">
                         > Go!
                     </div>
-                    <div class="centerFlex horizontalFlex" style="width:35%; height:7vh; background-color: wheat; border-radius:20px; font-weight:bolder; font-size:30px;">
+                    <div class="centerFlex horizontalFlex" style="width:35%; height:7vh; background-color: wheat; border-radius:20px; font-weight:bolder; font-size:30px; cursor:pointer;" id="hint" onclick="doHints()">
                         Hint
                     </div>
                 </div>
@@ -206,6 +240,67 @@
 
     </div>
 
-    <div class="bar redGlow" style="background-color: rgb(143, 10, 10); bottom:0; position:absolute;"></div>
+    <div class="bar redGlow" style="background-color: rgb(143, 10, 10); bottom:0; position:absolute;" id="timerBar"></div>
+    <div id="completedMode" class="absolute horizontalFlex centerFlex fullAbsolute" style="position: absolute; transition: all 0.15s ease-in-out; z-index:2001; opacity: 0; pointer-events: none; background-color: rgba(0, 0, 0, 0.5);">
+        <div class="verticalFlex centerFlex lightGlow centerText" style="z-index:500; border-radius: 15px; padding: 20px; width: 30vw; background-color: wheat;">
+            <div style="margin-top: 10px; color:#001945; font-size:20px; text-align:center;"><strong>Congratulations! You have completed Mastery for this Studysheet.</strong></div>
+            <div style="margin-top: 10px;">View your statistics from this session below.</div>
+            <div id="doneStatsHolder" style="margin-top:10px; margin-bottom:10px; border: 2px solid #001945; border-radius:15px; padding:5px;">
+
+            </div>
+            <div style="margin-top: 10px; text-align: center;">You can continue studying in Endless Mode or you can go back to the Study options.</div>
+            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%; margin-bottom: 0; " onclick="hideElement(document.getElementById('completedMode'))" id="cont">Continue</div>
+            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%;" onclick="window.location.href='studysheetpage-new.html'">Exit</div>
+        </div>
+    </div>
+
+    <div id="timerPopup" class="absolute horizontalFlex centerFlex fullAbsolute" style="position: absolute; transition: all 0.15s ease-in-out; opacity: 0; pointer-events:none; z-index:1500; background-color: rgba(0, 0, 0, 0.5);">
+        <div class="verticalFlex centerFlex lightGlow centerText" style="z-index:500; border-radius: 15px; padding: 20px; width: 30vw; background-color: wheat; text-align: center;">
+            
+            <img src="assets/icons/timer.png" style="height:40px;">           
+            <div style="margin-top: 10px; color:#001945; font-size:20px;"><strong>Timer Settings</strong></div>
+            
+            
+            <div style="margin-top: 10px;">Set a time limit for how long you have to answer a question.</div>
+
+            <div style="margin-top: 10px; color:red;"><em>Warning: Progress is reset when enabling timer in the middle of studying.</em></div>
+            <div style="margin-top: 10px;" id="instructions">Time Per Question (seconds):</div>
+            <input type="number" min="1" style="background-color: rgb(47, 61, 115); border-radius: 15px; border: 2px solid #001945; height:5vh; width: 35%;color:wheat; font-family: Poppins; font-size:20px;" placeholder="7" id = "timeAmt"></input>
+            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%; margin-bottom: 0; " onclick="startTimer(document.getElementById('timeAmt').value)">Enable</div>
+            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%;" onclick="hideElement(this.parentNode.parentNode)">Cancel</div>
+        </div>
+    </div>
+
+    <div id="timerCountdown" class="absolute horizontalFlex centerFlex fullAbsolute" style="position: absolute; transition: all 0.15s ease-in-out; opacity: 0; pointer-events:none; z-index:1500; background-color: rgba(0, 0, 0, 0.5);">
+        <div id="timerCountdownText" style="font-size:70px; color:white;"><strong>Starting In: 3</strong></div>
+    </div>
+    <div id="restarting" class="absolute horizontalFlex centerFlex fullAbsolute" style="position: absolute; transition: all 0.15s ease-in-out; z-index:2001; opacity: 0; pointer-events: none; background-color: rgba(0, 0, 0, 0.5);">
+        <div class="verticalFlex centerFlex lightGlow centerText" style="z-index:500; border-radius: 15px; padding: 20px; width: 30vw; background-color: wheat;">
+            <div style="margin-top: 10px; color:#001945; font-size:20px; text-align:center;"><strong>Are you sure you want to reset your progress on this Studysheet?</strong></div>
+            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%; margin-bottom: 0;" onclick="window.location.reload()">Yes</div>
+            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%;" onclick="hideElement(document.getElementById('restarting'))"">Cancel</div>
+        </div>
+    </div>
+    <div id="shuffling" class="absolute horizontalFlex centerFlex fullAbsolute" style="position: absolute; transition: all 0.15s ease-in-out; z-index:2001; opacity: 0; pointer-events: none; background-color: rgba(0, 0, 0, 0.5);">
+        <div class="verticalFlex centerFlex lightGlow centerText" style="z-index:500; border-radius: 15px; padding: 20px; width: 30vw; background-color: wheat;">
+            <div style="margin-top: 10px; color:#001945; font-size:20px; text-align:center;"><strong>Are you sure you want to shuffle the questions in this Studysheet?</strong></div>
+            <div style="margin-top: 10px; color: red;">This will reset any progress you currently have in Mastery on this sheet.</div>
+            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%; margin-bottom: 0;" onclick="shuffleSheet()">Yes</div>
+            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%;" onclick="hideElement(document.getElementById('shuffling'))"">Cancel</div>
+        </div>
+    </div>
+
+
+    <div id="stats" class="absolute horizontalFlex centerFlex fullAbsolute" style="position: absolute; transition: all 0.15s ease-in-out; opacity: 0; pointer-events:none; z-index:1500; background-color: rgba(0, 0, 0, 0.5);">
+        <div class="verticalFlex centerFlex lightGlow centerText" style="z-index:500; border-radius: 15px; padding: 20px; width: 30vw; background-color: wheat; text-align: center;">
+            
+            <img src="assets/icons/stats.png" style="height:40px;">           
+            <div style="margin-top: 10px; color:#001945; font-size:20px;"><strong>Statistics</strong></div>
+            <div id="statsHolder">
+                
+            </div>
+            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%;" onclick="hideElement(this.parentNode.parentNode)">Ok</div>
+        </div>
+    </div>
 </body>
 </html>

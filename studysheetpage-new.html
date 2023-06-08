@@ -9,7 +9,7 @@
     <script src="javascript/getAndShowSheet.js"></script>
     <script src="javascript/httpGet.js"></script>
     <link rel="icon" href="circular lang icon.png">
-
+    <style id="movingbg"></style>
     <style>
         .mainContainer {
             display: flex;
@@ -186,10 +186,15 @@
             width: 40px;
         }
 
-
+        body {
+            /* overflow-y: hidden; Hide vertical scrollbar */
+            overflow-x: hidden; /* Hide horizontal scrollbar */
+            background-color: #001945;
+            background: #001945;
+        }
     </style>
 </head>
-<body onload="doPreviewAndLocal()">
+<body onload="doPreviewAndLocal()" style="background: rgb(0,25,69);" >
     <div class="horizontalFlex" style="height: calc(84vh - 22px); pointer-events: all; transition: all 0.15s ease-in-out; opacity: 1; z-index: 1001; align-items: center; justify-content: center; bottom: 0; left: 0; right: 0; position:absolute; background-color: var(--primary-dark)" id="noclickdiv">
         <div class="lightGlow "style="width: 90vw; max-width: 500px; background-color: var(--primary-light); border-radius:15px; padding:20px; text-align: center;">
             <div style="margin: 50px;">
@@ -225,7 +230,7 @@
                 Local
                 <div class="functionRowItemContents" style="z-index:500;">
                     <div onclick="window.location.href='train.html'">Train</div>
-                    <div onclick="window.location.href='mastery-alt.html'">Mastery</div>
+                    <div onclick="window.location.href='mastery.html'">Mastery</div>
                     <div onclick="window.location.href='multiplechoice.html'">Multiple Choice</div>
                     <div onclick="window.location.href='flashcardsnewtml'">Flashcards</div>
                     <div onclick="window.location.href='practestnew.html'">Practice Test</div>
@@ -262,7 +267,7 @@
         <div class="whiteBackdrop">
             <div class="leftSidebarOptions">
                 <div><button class="lightGlow newbutton" id="trainbutton" onclick="window.location.href='train.html'">Train</button></div>
-                <div><button class="lightGlow newbutton" onclick="window.location.href='mastery-alt.html'">Mastery</button></div>
+                <div><button class="lightGlow newbutton" onclick="window.location.href='mastery.html'">Mastery</button></div>
                 <div><button class="lightGlow newbutton" onclick="window.location.href='practestnew.html'">Practice Test</button></div>
                 <div><button class="lightGlow newbutton" onclick="window.location.href='speed.html'">Speed Review</button></div>
                 <div><button class="lightGlow newbutton" id="multiplechoicebutton" onclick="window.location.href='multiplechoice.html'">Multiple Choice</button></div>
@@ -339,5 +344,31 @@ function initializeEdit(){
     window.localStorage.setItem("editSheet", "true");
     window.location.href='creator.html';
 }
+
+
+window.onscroll = function() {
+    console.log("scrolling")
+        var scroll = window.scrollY;
+        // get sussyJavaScript style element
+        var movingbg = document.getElementById("movingbg");
+        // set the innerHTML to be #welcome::after { }
+        movingbg.innerHTML = "body { background-position: 0 " + scroll + "px; }";
+    };
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Tab') {
+            var focused = document.activeElement;
+            var top = focused.offsetTop;
+            top -= 200;
+            if (top < 0) {
+                top = 0;
+            }
+            window.scroll({
+                top: top,
+                left: 0,
+                behavior: 'smooth'
+            });
+        }
+    });
 </script>
 </html>

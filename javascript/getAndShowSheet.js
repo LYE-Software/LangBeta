@@ -102,7 +102,7 @@ async function doPreviewAndLocal(){
     document.getElementById("noclickdiv").style.opacity = "0";
     document.getElementById("noclickdiv").style.pointerEvents = "none";
     body = document.getElementsByTagName("body")[0];
-    body.style.background = "linear-gradient(180deg, #001945 35.94%, #000011 100%)"
+    //body.style.background = "linear-gradient(180deg, #001945 35.94%, #000011 100%)"
     
 }
 

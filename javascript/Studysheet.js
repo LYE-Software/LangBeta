@@ -54,6 +54,18 @@ class Studysheet {
         return this.terms.splice(n, 1);
     }
     
+    getFullLength(){
+        var full = 0;
+        for (var i = 0; i<this.terms.length; i++){
+            if (this.terms[i].isMulti){
+                full+=this.terms[i].length;
+            } else {
+                full++;
+            }
+        }
+        return full;
+    }
+
 }
 
 class Term {

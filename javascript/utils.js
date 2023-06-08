@@ -21,4 +21,21 @@ function showPopup(textToShow){
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
- }
+}
+
+function deactivate(element){
+    console.log("deactivating "+element)
+    element.style.backgroundColor = "#85888c"
+    element.pointerEvents = "none"
+}
+
+function reactivate(element, prev){
+    console.log("activating "+element)
+    element.style.backgroundColor = prev
+    element.pointerEvents = "all"
+}
+
+
+function moveBar(newAmt, elem){
+    elem.style.width = newAmt + '%';
+}
