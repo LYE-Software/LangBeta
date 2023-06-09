@@ -4,7 +4,7 @@
 
 
 //saving & creator stuff
-function saveToCloud(){
+function saveToCloud(lucy){
     sessionid = localStorage.getItem("usertoken");
     var okToUpload = true;
     customusername = localStorage.getItem("customusername");
@@ -129,7 +129,7 @@ function saveToCloud(){
             } else {
                 var url = "https://backend.langstudy.tech:444/"+sessionid+"/Studysheets/upload/"+filename;
             }
-            if(okToUpload == true){
+            if(okToUpload == true && !lucy){
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", url);
             
@@ -145,6 +145,8 @@ function saveToCloud(){
                 var data = toUpload;
                 console.log("sending " + data + " to " + url);
                 xhr.send(data);
+            } else if (lucy){
+                return data;
             }
             
         }
@@ -513,7 +515,18 @@ function getRandomQuestion(textBlock) {
 }
 
 
-
+function sendLucyMessage(){
+    var message = document.getElementById("lucyMessage").value;
+    document.getElementById("lucyLoader").style.display = "flex";
+    document.getElementById("lucyMessage").value = "";
+    if (message == "" || message == " " || message == null){
+        showPopup("You cannot send an empty message.")
+        document.getElementById("lucyLoader").style.display = "none";
+    } else{
+        var data = saveToCloud(true);
+        
+    }
+}
 
 
 

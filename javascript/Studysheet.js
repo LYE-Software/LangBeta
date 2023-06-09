@@ -5,6 +5,13 @@ function parseFromJSON(rawjson){
     return recievedStudysheet;
 }
 
+function arrayToSheet(arr, name){
+    var toReturn = new Studysheet(name)
+    for (var i = 0; i<arr.length; i++){
+        toReturn.add(arr[i]);
+    }
+    return toReturn;
+}
 
 class Studysheet {
     
@@ -64,6 +71,27 @@ class Studysheet {
             }
         }
         return full;
+    }
+
+    convertToSingle(){
+        //does not work, pls fix
+        var tmpTerms = []
+        for (var i = 0; i<this.terms.length; i++){
+            if (!this.terms[i].isMulti){
+                tmpTerms.push(this.terms[i]);
+            } else{
+                var m = this.terms[i];
+                for (var i = 0; i<m.length; i++){
+                    var t = m.question+": "+m.terms[i]
+                    var newterm = new Term(false, t, m.answers[i], m.hasImage);
+                    if (m.hasImage){
+                        newterm.addImage(m.imageSrc);
+                    }
+                    tmpTerms.push(newterm);
+                }
+            }
+        }
+        return tmpTerms;
     }
 
 }

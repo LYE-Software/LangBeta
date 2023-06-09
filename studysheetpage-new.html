@@ -192,6 +192,42 @@
             background-color: #001945;
             background: #001945;
         }
+        
+        #linkholder {
+            max-width: 450px;
+            width: 80vw;
+
+            margin-top: 30px; 
+            background-color: var(--primary-dark); 
+            color:var(--primary-light); 
+            font-size:15px; 
+            border-radius: 10px; 
+            padding:20px; 
+            overflow-x:scroll; 
+            z-index: 500;
+
+            white-space: nowrap;
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none; 
+            /* text-align: left; */
+        }
+
+        .linkContainer {
+            border-radius: 15px; 
+            padding: 20px; 
+
+            max-width: 500px;
+            width: 90vw;
+
+            background-color: var(--primary-light);
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        #linkholder::-webkit-scrollbar {
+        display: none;
+        }
+
+        
     </style>
 </head>
 <body onload="doPreviewAndLocal()" style="background: rgb(0,25,69);" >
@@ -234,7 +270,6 @@
                     <div onclick="window.location.href='multiplechoice.html'">Multiple Choice</div>
                     <div onclick="window.location.href='flashcardsnewtml'">Flashcards</div>
                     <div onclick="window.location.href='practestnew.html'">Practice Test</div>
-                    <div onclick="window.location.href='speed.html'">Speed Review</div>
                 </div>
             </div>
             <div class="functionRowItem">
@@ -269,7 +304,6 @@
                 <div><button class="lightGlow newbutton" id="trainbutton" onclick="window.location.href='train.html'">Train</button></div>
                 <div><button class="lightGlow newbutton" onclick="window.location.href='mastery.html'">Mastery</button></div>
                 <div><button class="lightGlow newbutton" onclick="window.location.href='practestnew.html'">Practice Test</button></div>
-                <div><button class="lightGlow newbutton" onclick="window.location.href='speed.html'">Speed Review</button></div>
                 <div><button class="lightGlow newbutton" id="multiplechoicebutton" onclick="window.location.href='multiplechoice.html'">Multiple Choice</button></div>
             </div>
             <div class="leftSidebarPreview"> 
@@ -282,7 +316,7 @@
         <div class="whiteBackdrop">
             <button class="lightGlow newbutton" onclick="initializeEdit()"><img src="assets/icons/edit.png"></button>
             <button class="lightGlow newbutton" onclick="shareLink()"><img src="assets/icons/share.png"></button>
-            <button class="lightGlow newbutton"><img src="assets/icons/flashcards.png" style="width:65px; height:65px; margin-top:5px;"></button>
+            <button class="lightGlow newbutton"><img src="assets/icons/flashcards.png" style=""></button>
             <button class="lightGlow newbutton" onclick="window.location.href='settings.html'"><img src="assets/icons/settings.png"></button>
         </div>
     </div>
