@@ -4,13 +4,17 @@ var sheet;
 function doPracticeTest(){
     rawJson = window.localStorage.getItem("fullstudysheet")
     document.title = window.localStorage.getItem("chosenSheet") + " | Lang"
+    document.getElementById("testName").innerHTML = window.localStorage.getItem("chosenSheet")
     sheet = parseFromJSON(rawJson)
 
     console.log("this is what the sheet is "+sheet)
     var singleSheet = arrayToSheet(sheet.convertToSingle(), window.localStorage.getItem("chosenSheet"));
+    for (i=0; i<singleSheet.length; i++){
+        console.log(singleSheet.terms[i].returnArray())
+    }
     for(i=0; i<=singleSheet.length; i++){
         
-        makeTestInputs(i+1, singleSheet.term, i, "response"+i, singleSheet.answer);
+        makeTestInputs(i+1, singleSheet.terms[i].term, i, "response"+i, singleSheet.terms[i].answer);
     }
     
 }
@@ -37,4 +41,39 @@ function makeTestInputs(num, question, answerId, responseId, correctAnswer){
     
     `
     document.getElementById("questionHolder").innerHTML+=newQuestion;
+}
+
+function checkTest(){
+    let listToCheck = document.getElementsByClassName("practestInput")
+    let counter = 0;
+    for (i=0; i<listToCheck.length; i++){
+        input = listToCheck[i]
+        console.log("input is: "+input)
+        idnum = input.id;
+        responseIdTmp = "response"+idnum;
+        responseText = document.getElementById(responseIdTmp)
+        correctAnswer = input.getAttribute("data-correct");
+        correctAnswer = correctAnswer.trim();
+        correctAnswer = correctAnswer.toLowerCase(); 
+        userValue = input.value.trim()
+        if (userValue.toLowerCase()== correctAnswer){
+            counter++;
+            responseText.innerHTML = "Correct!";
+            responseText.style.color = "#3e8e41";
+        } else {
+            responseText.innerHTML = "Incorrect. The correct answer was: "+input.getAttribute("data-correct");
+            responseText.style.color = "red";
+
+        }
+    }
+    document.getElementById("percentCorrect").innerHTML = counter+"/"+listToCheck.length;
+    counter = counter+0;
+    listLength = listToCheck.length + 0;
+    console.log("percentage: "+(counter/listLength))
+    if (counter/listLength >= 0.75){
+        document.getElementById("percentCorrect").style.color = "green";
+
+    } else {
+        document.getElementById("percentCorrect").style.color = "red";
+    }
 }

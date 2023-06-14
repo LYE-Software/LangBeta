@@ -81,9 +81,9 @@ class Studysheet {
                 tmpTerms.push(this.terms[i]);
             } else{
                 var m = this.terms[i];
-                for (var i = 0; i<m.length; i++){
-                    var t = m.question+": "+m.terms[i]
-                    var newterm = new Term(false, t, m.answers[i], m.hasImage);
+                for (var j = 0; j<m.length; j++){
+                    var t = m.question+": "+m.terms[j]
+                    var newterm = new Term(false, t, m.answers[j], m.hasImage);
                     if (m.hasImage){
                         newterm.addImage(m.imageSrc);
                     }
@@ -111,7 +111,7 @@ class Term {
     }
 
     returnArray(){
-        var arr = [term,answer];
+        var arr = [this.term,this.answer];
         return arr;
     }
 
