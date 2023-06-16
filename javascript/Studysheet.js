@@ -108,6 +108,7 @@ class Term {
             "question":term,
             "answer":answer
         }
+        this.trainId = null;
     }
 
     returnArray(){
