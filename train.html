@@ -5,7 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lang</title>
     <link rel="stylesheet" href="style.css">
-    <script src="code.js"></script>
+    <script src="javascript/train.js"></script>
+    <script src="javascript/Studysheet.js"></script>
+    <script src="javascript/utils.js"></script>
     <link rel="icon" href="circular lang icon.png">
 </head>
 <style>
@@ -192,11 +194,11 @@ color: var(--primary-light);
             
             <div class="lightGlow" style="width:40vw; display:flex; flex-direction: column; justify-content: center; align-items: center; background-color: wheat; border-radius: 20px;">
                 <p style="font-family:Poppins; color:#001945; font-size: 2vw; font-weight:bold;">Train</p>
-                <!-- <div>
+                <div>
                     <div style="font-family:Poppins; color:#001945; font-size: 1vw; font-weight:bold;">Terms per Round</div>
-                    <input placeholder = "5" type = "number" id="termsperround" style="background-color: #001945; color: wheat; width:20vw; height:7vh; border-radius: 20px; text-align: center; display:flex; flex-direction: column; justify-content: center;" contenteditable>
+                    <input placeholder = "5" type = "number" min="3" id="termsperround" style="background-color: #001945; color: wheat; width:20vw; height:7vh; border-radius: 20px; text-align: center; display:flex; flex-direction: column; justify-content: center;" contenteditable>
 
-                </div> -->
+                </div> 
                 <button class="dropbtn" id="myBtnBegin" style="margin:20px; background-color: #001945; color: wheat;" onclick="onBtnPress('t')">Begin</button>
             </div>
             <div style="width:10vw; display:flex; justify-content: center; align-items: center;  border-radius: 20px;"></div>

@@ -13,7 +13,7 @@ async function doPreviewAndLocal(){
                 showPopup("You already saved this Studysheet!")
             };
         }
-        document.getElementById("saveBtnHolder").style.display = "";
+        //document.getElementById("saveBtnHolder").style.display = "";
         console.log("inside shareEvent")
         sessionid = url.searchParams.get("userid")
         chosensheet = url.searchParams.get("sheetName")
@@ -21,14 +21,14 @@ async function doPreviewAndLocal(){
         window.localStorage.setItem("sharedSheet", chosensheet);
         console.log(chosensheet)
         sheet = await httpGet("https://backend.langstudy.tech:444/id/"+sessionid+"/Studysheets/"+chosensheet)
-        document.getElementById("studysheetname").innerHTML = chosensheet
-        document.getElementById("editbutton").style.borderColor = "#a0a0a0"
-        document.getElementById("editbutton").style.backgroundColor = "#a0a0a0"
+        document.getElementById("studysheetname").innerHTML = chosensheet.slice(0,15)+"..."
+        //document.getElementById("editbutton").style.borderColor = "#a0a0a0"
+        //document.getElementById("editbutton").style.backgroundColor = "#a0a0a0"
 
-        document.getElementById("editbutton").onclick = function(){
-            document.getElementById('notOwned').style.pointerEvents = "all";
-            document.getElementById('notOwned').style.opacity = 1;
-        }
+        //document.getElementById("editbutton").onclick = function(){
+            //document.getElementById('notOwned').style.pointerEvents = "all";
+            //document.getElementById('notOwned').style.opacity = 1;
+        //}
     
     } 
     else if(window.localStorage.getItem("sharedID") != "" &&  window.localStorage.getItem("sharedID") != null){
@@ -47,7 +47,7 @@ async function doPreviewAndLocal(){
         chosensheet = chosensheet.replaceAll("%26", "&")
         chosensheet = chosensheet.replaceAll("%20", " ");
 
-        document.getElementById("studysheetname").innerHTML = chosensheet
+        document.getElementById("studysheetname").innerHTML = chosensheet.slice(0,15)+"..."
         document.getElementById("editbutton").style.borderColor = "#a0a0a0"
         document.getElementById("editbutton").style.backgroundColor = "#a0a0a0"
 
@@ -65,7 +65,7 @@ async function doPreviewAndLocal(){
         }
 
         toek = window.localStorage.getItem("usertoken")
-        document.getElementById("studysheetname").innerHTML = chosensheet
+        document.getElementById("studysheetname").innerHTML = chosensheet.slice(0,15)+"..."
         sheet = await httpGet("https://backend.langstudy.tech:444/"+toek+"/Studysheets/"+chosensheet+"/RequestPreview")
         // console.warn("inside the second go")
     }
@@ -81,6 +81,7 @@ async function doPreviewAndLocal(){
     
     console.log("og sheet: "+sheet)
     var newSheet = parseFromJSON(sheet);
+    console.log(newSheet)
     if (newSheet.length<4){
         console.log("removing...")
         document.getElementById("trainbutton").style.backgroundColor = "#a0a0a0";

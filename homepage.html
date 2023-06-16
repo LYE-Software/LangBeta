@@ -10,8 +10,10 @@
     <link rel="icon" href="assets/logos/lang-wheat.png">
     <title>Lang Study: Empowering All Through Education</title>
     <link rel="stylesheet" href="stylesheet.css">
-    <script src="code.js"></script>
-
+    <script src="javascript/homepage.js"></script>
+    <script src="javascript/Studysheet.js"></script>
+    <script src="javascript/utils.js"></script>
+    <script src="javascript/httpGet.js"></script>
     <style>
 
         #studysheetGridContainer::-webkit-scrollbar {
@@ -324,7 +326,7 @@
                             Edit
                         </div> -->
                         <div class="flexSpacer"></div>
-                        <div class="studysheetOption verticalFlex" style="cursor:pointer;" onclick="processDelete()">
+                        <div class="studysheetOption verticalFlex" style="cursor:pointer;" onclick="showElement(document.getElementById('deleteConfirmation'))">
                             Delete
                         </div>
                         <div class="flexSpacer"></div>

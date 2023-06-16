@@ -10,7 +10,7 @@ function saveToCloud(lucy){
     customusername = localStorage.getItem("customusername");
     // document.getElementById("sendingLoader").style.display="";
     showElement(document.getElementById("sendingLoader"));
-    if(document.getElementById("sstitle").innerHTML == ""){
+    if(document.getElementById("sstitle").innerHTML == "" && !lucy){
         showPopup("You forgot to name your Studysheet!")
         hideElement(document.getElementById("sendingLoader"));
         okToUpload = false;
@@ -107,22 +107,22 @@ function saveToCloud(lucy){
 
         if (okToUpload == true){
            
-            if (studysheet.returnRawData() == null || studysheet.returnRawData() == []){
+            if ((studysheet.returnRawData() == null || studysheet.returnRawData() == [] || studysheet.returnRawData == "" || studysheet.length == 0) && !lucy){
                 showPopup("You cannot upload an empty Studysheet.");
                 hideElement(document.getElementById("sendingLoader"));
                 okToUpload = false;
             }
-           
+            
             var toUpload = JSON.stringify(studysheet)
 
             console.log(toUpload);
 
-            var convertedSS = Object.assign(new Studysheet, JSON.parse(toUpload));
-            convertedSS.parseTerms();
-            console.log(convertedSS.returnRawData());
-            console.log(convertedSS.name)
-            console.log(convertedSS.getNthTerm(0).check("test"))
-            console.log("ABOVE")
+            // var convertedSS = Object.assign(new Studysheet, JSON.parse(toUpload));
+            // convertedSS.parseTerms();
+            // console.log(convertedSS.returnRawData());
+            // console.log(convertedSS.name)
+            // console.log(convertedSS.getNthTerm(0).check("test"))
+            // console.log("ABOVE")
 
             if(window.localStorage.getItem('editSheet')=="true") {
                 var url = "https://backend.langstudy.tech:444/"+sessionid+"/Studysheets/edit/"+filename;
@@ -516,6 +516,7 @@ function getRandomQuestion(textBlock) {
 
 
 function sendLucyMessage(){
+    var url = "https://backend.langstudy.tech:444/ai_studysheet/"+window.localStorage.getItem("usertoken");
     var message = document.getElementById("lucyMessage").value;
     document.getElementById("lucyLoader").style.display = "flex";
     document.getElementById("lucyMessage").value = "";
@@ -524,8 +525,84 @@ function sendLucyMessage(){
         document.getElementById("lucyLoader").style.display = "none";
     } else{
         var data = saveToCloud(true);
-        
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url);
+    
+        xhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
+    
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                console.log(xhr.status);
+                if (xhr.status == 500){
+                    console.error("Langbot internal server error")
+                    createBubble("Sorry, we encountered an error. You can try again, or edit your query.")
+                    document.getElementById("lucyLoader").style.display = "none";
+
+                }
+                else{
+                    addResponse(xhr.responseText);
+                }
+                console.log(xhr.responseText);
+            }
+        };
+        var data = data+"-seperator-"+message;
+        console.log("sending " + data + " to " + url);
+        xhr.send(data);
     }
+}
+
+function addResponse(studysheetReturned){
+    setup = true;
+    console.warn("THE RESPONSE IS: "+studysheetReturned)
+    var sendNormalResponse = true;
+    var responses = [
+        "Alright, here is what I got.",
+        "Here's your Studysheet.",
+        "Done! Do you have any other changes you would like to make?",
+        "Finished! What else can I do to help improve your Studysheet?",
+        "I'm done. Is there anything else you would like me to do?",
+        "Is there anything else I can do to help you with this Studysheet?",
+        "All done. Would you like me to make any other changes?",
+        "Would you like me to change any of the terms in your Studysheet?",
+        "Let me know if there's anything else I can do for you."
+    ]
+    document.getElementById("insideCreator").innerHTML = "";
+    
+    response = responses[Math.floor(Math.random() * (responses.length))];
+    parsedSheet = studysheetReturned.split("\n");
+    for (i = 0; i<parsedSheet.length; i++){
+        try{
+            wordPair = getRandomQuestion(studysheetReturned);
+        } catch(error){
+            sendNormalResponse = false;
+        }
+        
+        createCreatorInput(wordPair[0], wordPair[1])
+    }
+    
+    createBubble(response)
+    document.getElementById("lucyLoader").style.display = "none";
+    
+}
+
+function createBubble(msg){
+    var genericBubble = `
+    <div class="bubbleContainer">
+        <div class="whiteBubble bubble">${msg}</div>
+    </div>
+    `
+    document.getElementById("messageCont").innerHTML = genericBubble + document.getElementById("messageCont").innerHTML;
+    
+    
+}
+
+function createUserBubble(msg){
+    var genericBubble = `
+    <div class="bubbleContainer">
+        <div class="blueBubble bubble">${msg}</div>
+    </div>
+    `
+    document.getElementById("messageCont").innerHTML = genericBubble + document.getElementById("messageCont").innerHTML;
 }
 
 
