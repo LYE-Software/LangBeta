@@ -1,6 +1,6 @@
 
 async function doPreviewAndLocal(){
-
+    hideElement(document.getElementById("flashcardBox"))
     console.log("in dopreview")
     document.getElementById("homeusername").innerHTML = localStorage.getItem("customusername");
 
@@ -178,4 +178,9 @@ async function shareLink(){
         console.log(url)
     }
     
+}
+
+
+function showFlashcards(){
+    showElement()
 }

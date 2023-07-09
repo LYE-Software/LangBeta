@@ -4,6 +4,15 @@ var sheet;
 var groupLength;
 var reviewIDX;
 function doTrain(){
+    var wage = document.getElementById("input");
+    wage.addEventListener("keydown", function (e) {
+        if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+            console.log("ENTER PRESS: t = "+t+" customAnswer = "+customAnswer+"")
+            if (isTrainWrite == true){
+                checkTrain()
+            }
+        }
+    });
     document.getElementById("informationAbt").style.display = "none";
     document.getElementById("myBtnBegin").style.display = "none";
     try {
@@ -34,16 +43,8 @@ function doTrain(){
 
 
 
-var wage = document.getElementById("input");
-wage.addEventListener("keydown", function (e) {
-    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
-        console.log("ENTER PRESS: t = "+t+" customAnswer = "+customAnswer+"")
-        if (isTrainWrite == true){
-            checkTrain()
-        }
-    }
-});
-doTrain();
+
+
 
 
 

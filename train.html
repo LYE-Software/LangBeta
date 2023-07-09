@@ -199,7 +199,7 @@ color: var(--primary-light);
                     <input placeholder = "5" type = "number" min="3" id="termsperround" style="background-color: #001945; color: wheat; width:20vw; height:7vh; border-radius: 20px; text-align: center; display:flex; flex-direction: column; justify-content: center;" contenteditable>
 
                 </div> 
-                <button class="dropbtn" id="myBtnBegin" style="margin:20px; background-color: #001945; color: wheat;" onclick="onBtnPress('t')">Begin</button>
+                <button class="dropbtn" id="myBtnBegin" style="margin:20px; background-color: #001945; color: wheat;" onclick="doTrain()">Begin</button>
             </div>
             <div style="width:10vw; display:flex; justify-content: center; align-items: center;  border-radius: 20px;"></div>
             <div class="lightGlow" style="width:40vw; height:60vh; display:flex; justify-content: center; align-items: center; background-color: wheat; border-radius: 20px; padding: 20px;">
@@ -312,7 +312,5 @@ color: var(--primary-light);
 </body>
 </html>
 <script>
-    $("#termsperround").keypress(function(e) {
-    if (isNaN(String.fromCharCode(e.which))) e.preventDefault();
-});
+    
 </script>
