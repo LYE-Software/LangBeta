@@ -20,7 +20,7 @@ async function doPreviewAndLocal(){
         window.localStorage.setItem("sharedID", sessionid);
         window.localStorage.setItem("sharedSheet", chosensheet);
         console.log(chosensheet)
-        sheet = await httpGet("https://backend.langstudy.tech:444/id/"+sessionid+"/Studysheets/"+chosensheet)
+        sheet = await httpGet("https://backend.langstudy.tech/id/"+sessionid+"/Studysheets/"+chosensheet)
         document.getElementById("studysheetname").innerHTML = chosensheet.slice(0,15)+"..."
         //document.getElementById("editbutton").style.borderColor = "#a0a0a0"
         //document.getElementById("editbutton").style.backgroundColor = "#a0a0a0"
@@ -43,7 +43,7 @@ async function doPreviewAndLocal(){
         console.log("inside localstorage")
         chosensheet = window.localStorage.getItem("sharedSheet").replaceAll(" ", "%20");
         chosensheet = chosensheet.replaceAll("&", "%26")
-        sheet = await httpGet("https://backend.langstudy.tech:444/id/"+window.localStorage.getItem("sharedID")+"/Studysheets/"+chosensheet)
+        sheet = await httpGet("https://backend.langstudy.tech/id/"+window.localStorage.getItem("sharedID")+"/Studysheets/"+chosensheet)
         chosensheet = chosensheet.replaceAll("%26", "&")
         chosensheet = chosensheet.replaceAll("%20", " ");
 
@@ -66,7 +66,7 @@ async function doPreviewAndLocal(){
 
         toek = window.localStorage.getItem("usertoken")
         document.getElementById("studysheetname").innerHTML = chosensheet.slice(0,15)+"..."
-        sheet = await httpGet("https://backend.langstudy.tech:444/"+toek+"/Studysheets/"+chosensheet+"/RequestPreview")
+        sheet = await httpGet("https://backend.langstudy.tech/"+toek+"/Studysheets/"+chosensheet+"/RequestPreview")
         // console.warn("inside the second go")
     }
 

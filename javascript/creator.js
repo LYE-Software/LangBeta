@@ -125,9 +125,9 @@ function saveToCloud(lucy){
             // console.log("ABOVE")
 
             if(window.localStorage.getItem('editSheet')=="true") {
-                var url = "https://backend.langstudy.tech:444/"+sessionid+"/Studysheets/edit/"+filename;
+                var url = "https://backend.langstudy.tech/"+sessionid+"/Studysheets/edit/"+filename;
             } else {
-                var url = "https://backend.langstudy.tech:444/"+sessionid+"/Studysheets/upload/"+filename;
+                var url = "https://backend.langstudy.tech/"+sessionid+"/Studysheets/upload/"+filename;
             }
             if(okToUpload == true && !lucy){
                 var xhr = new XMLHttpRequest();
@@ -500,7 +500,7 @@ function getRandomQuestion(textBlock) {
         let splitter = questionArray[0].split("--image(")
         let image = splitter[1]
         image = image.substring(0, 64);
-        let urlForImage = "https://backend.langstudy.tech:444/"+window.localStorage.getItem("usertoken")+"/image/get/"+image;
+        let urlForImage = "https://backend.langstudy.tech/"+window.localStorage.getItem("usertoken")+"/image/get/"+image;
         questionArray.push(urlForImage);
         questionArray[0] = splitter[0] + image.substring(64, image.length);
         
@@ -516,7 +516,7 @@ function getRandomQuestion(textBlock) {
 
 
 function sendLucyMessage(){
-    var url = "https://backend.langstudy.tech:444/ai_studysheet/"+window.localStorage.getItem("usertoken");
+    var url = "https://backend.langstudy.tech/ai_studysheet/"+window.localStorage.getItem("usertoken");
     var message = document.getElementById("lucyMessage").value;
     document.getElementById("lucyLoader").style.display = "flex";
     document.getElementById("lucyMessage").value = "";

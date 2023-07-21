@@ -46,8 +46,8 @@ async function getLibraryList(){
         console.log("inside the else")
         sessionid = window.localStorage.getItem("usertoken")
         console.log(sessionid);
-        serverData = await httpGet("https://backend.langstudy.tech:444/"+sessionid+"/returnNameAndList", false)
-        // await fetch('https://backend.langstudy.tech:444/"+sessionid+"/returnNameAndList').then(function(response) {
+        serverData = await httpGet("https://backend.langstudy.tech/"+sessionid+"/returnNameAndList", false)
+        // await fetch('https://backend.langstudy.tech/"+sessionid+"/returnNameAndList').then(function(response) {
         //     return response.blob();
         // }).then(function(response) {
         //     serverData = response.text();
@@ -62,9 +62,9 @@ async function getLibraryList(){
         }
         else if (serverData == null || serverData == ""){
             console.warn("Server Connection Failed! Trying Again...")
-            serverData = await httpGet("https://backend.langstudy.tech:444/"+sessionid+"/returnNameAndList", false)
+            serverData = await httpGet("https://backend.langstudy.tech/"+sessionid+"/returnNameAndList", false)
 
-            // await fetch('https://backend.langstudy.tech:444/"+sessionid+"/returnNameAndList').then(function(response) {
+            // await fetch('https://backend.langstudy.tech/"+sessionid+"/returnNameAndList').then(function(response) {
             //     return response.blob();
             // }).then(function(response) {
             //     serverData = response.text();
@@ -243,7 +243,7 @@ async function deleteSS(){
     document.getElementById("loadingscreen").classList = "verticalFlex";
     document.getElementById("loadingscreen").style.display = "flex"
     hideElement(document.getElementById("deleteConfirmation"))
-    link = "https://backend.langstudy.tech:444/"+sessionid+"/Studysheets/"+ newarr[index]+"/delete"
+    link = "https://backend.langstudy.tech/"+sessionid+"/Studysheets/"+ newarr[index]+"/delete"
     console.log("link is: "+link)
     await httpGet(link)
     window.location.reload()
@@ -273,7 +273,7 @@ function sendFeedback(){
         alert("The feedback message cannot be nothing.")
     } else {
         document.getElementById("feedbackUIInputContainer").innerHTML = "Thank you for your feedback!"
-        url = "https://backend.langstudy.tech:444/feedback/"+sessionid;
+        url = "https://backend.langstudy.tech/feedback/"+sessionid;
         var xhr = new XMLHttpRequest();
         xhr.open("POST", url);
     
