@@ -12,9 +12,15 @@ function clearAll(){
 function stats(elem){
     clearAll()
     elem.style.backgroundColor = "#f5deb3"
-    var date = "undefined"
-    var amt = "undef"
-    var last = "undef"
+    var date = "[user sign up date coming soon]"
+    var amt = "0"
+    var last = "---"
+    if (window.localStorage.getItem("studysheetcount")!=null && window.localStorage.getItem("studysheetcount")!=""){
+        amt = window.localStorage.getItem("studysheetcount")
+    } 
+    if (window.localStorage.getItem("lastsheet")!=null && window.localStorage.getItem("lastsheet")!= ""){
+        last = window.localStorage.getItem("lastsheet")
+    }
     var data = `
     <p>You have been a Lang Study user for <strong>${date}.</strong></p>
     <p>You have <strong>${amt} Studysheets.</strong></p>

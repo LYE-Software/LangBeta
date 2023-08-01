@@ -128,7 +128,7 @@ async function getLibraryList(){
                 document.getElementById("homeusername").innerHTML = "Hello, "+username;
                 window.localStorage.setItem("customusername", username);
                 hideLoadingView();
-                
+                window.localStorage.setItem("studysheetcount", newarr.length);
                 for (i=0;i<newarr.length;i++){
                     console.log("inside for")          
                     // var sheet = `

@@ -19,6 +19,7 @@ async function doPreviewAndLocal(){
         chosensheet = url.searchParams.get("sheetName")
         window.localStorage.setItem("sharedID", sessionid);
         window.localStorage.setItem("sharedSheet", chosensheet);
+        window.localStorage.setItem("lastsheet", chosensheet)
         console.log(chosensheet)
         sheet = await httpGet("https://backend.langstudy.tech/id/"+sessionid+"/Studysheets/"+chosensheet)
         document.getElementById("studysheetname").innerHTML = chosensheet.slice(0,15)+"..."
@@ -43,6 +44,7 @@ async function doPreviewAndLocal(){
         console.log("inside localstorage")
         chosensheet = window.localStorage.getItem("sharedSheet").replaceAll(" ", "%20");
         chosensheet = chosensheet.replaceAll("&", "%26")
+        window.localStorage.setItem("lastsheet", chosensheet)
         sheet = await httpGet("https://backend.langstudy.tech/id/"+window.localStorage.getItem("sharedID")+"/Studysheets/"+chosensheet)
         chosensheet = chosensheet.replaceAll("%26", "&")
         chosensheet = chosensheet.replaceAll("%20", " ");
@@ -58,6 +60,7 @@ async function doPreviewAndLocal(){
     }
     else{
         chosensheet = window.localStorage.getItem("chosenSheet")
+        window.localStorage.setItem("lastsheet", chosensheet)
 
         if(chosensheet == null || chosensheet == ""){
             document.getElementById("unableToFind").style.opacity = "1";
