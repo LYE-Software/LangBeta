@@ -5,15 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lang</title>
     <link rel="stylesheet" href="style.css">
-    <script src="javascript/train.js"></script>
+    <link rel="stylesheet" href="sidebar.css">
+    <script src="javascript/train-logic.js"></script>
+    <script src="javascript/train-modes.js"></script>
     <script src="javascript/Studysheet.js"></script>
     <script src="javascript/utils.js"></script>
     <link rel="icon" href="circular lang icon.png">
 </head>
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Rubik+Mono+One&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins&family=Rubik+Mono+One&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@800&display=swap');
     :root {
     --primary-dark: #001945;
     --primary-light: wheat;
+}
+body{
+    font-weight: lighter;
 }
     .absolute {
         position: absolute;
@@ -153,15 +161,35 @@ background-color: rgb(47, 61, 115);
 color: var(--primary-light);
 
 }
+.bar{
+        width: 0vw;
+        height:2vh;
+        transition: 0.5s;
+    }
 
 </style>
 <body class="darkHomepage">
+    <div class="bar lightGlow" style="background-color: wheat; position:absolute;" id="progBar"></div>
+    <div class="bar lightGlow" style="background-color: rgba(255, 255, 255, 0.76); position:absolute; bottom:0;" id="groupBar"></div>
     <div id="completedTrain" class="absolute horizontalFlex centerFlex fullAbsolute" style="transition: all 0.15s ease-in-out; z-index:500; opacity: 0; pointer-events: none; background-color: rgba(0, 0, 0, 0.5);">
         <div class="verticalFlex centerFlex lightGlow centerText" style="z-index:500; border-radius: 15px; padding: 20px; width: 30vw; background-color: wheat;">
             <div style="margin-top: 10px; color:#001945; font-size:20px;"><strong>Congratulations! You have completed Train for this Studysheet.</strong></div>
             <div style="margin-top: 10px;">You can return to the Homepage or you can go back to the Study options.</div>
             <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%; margin-bottom: 0; " onclick="window.location.href='homepage.html'">Home</div>
             <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%;" onclick="window.location.href='studysheetpage-new.html'">Study Options</div>
+        </div>
+    </div>
+
+    <div class="rightSidebarContainer verticalFlex" style="z-index:1100; display:none;" id="shelf">
+            
+        <img src="assets/logos/lang-wheat.png" style="height:10vh; position:fixed; top:3.5vh; cursor:pointer;" onclick="window.location.href='homepage.html'">
+
+        <div class="whiteBackdrop">
+            <button class="lightGlow newbutton" onclick="window.location.href='studysheetpage-new.html'" ><img src="assets/icons/blackBackButton.png"></button>
+            <button class="lightGlow newbutton" style="cursor:pointer;" onclick="stats()" ><img src="assets/icons/stats.png"></button>
+            
+            <button class="lightGlow newbutton" onclick="showElement(document.getElementById('restarting'))"><img src="assets/icons/reset.png"></button>
+            <button class="lightGlow newbutton" onclick="showElement(document.getElementById('explainer'))"><img src="assets/icons/help.png"></button>
         </div>
     </div>
     <!-- <div class="horizontalFlex centerFlex" style="justify-content: space-between">
@@ -175,7 +203,7 @@ color: var(--primary-light);
         <img src="assets/logos/lang-wheat.png" class="topleftlogoicon" onclick="window.location.href='homepage.html'" style="margin-right:40px; margin-top:40px;">
     </div> -->
 
-    <div>
+    <div id="topBar">
         <a href="studysheetpage-new.html"><img src="assets/icons/back.svg" style="left:0; top:0; position: absolute; width: 150px; height: auto; z-index: 100"></a>
         <div class="centerText">
             <h1 id="whatGroup" style="font-family:Poppins; color:wheat; "></h1>
@@ -192,6 +220,16 @@ color: var(--primary-light);
         
         <div style="display:flex; flex-direction: row; justify-content: space-between;">
             
+            
+            <div class="" style="width:40vw; height:60vh; display:flex; justify-content: center; align-items: center; color:white; border-radius: 20px; padding: 20px;">
+                <div>
+                    <p style="font-family:Poppins; color:white; font-size: 2vw; font-weight:bold;">Train allows you to dynamically learn your Studysheet. </p>
+                    <p style="font-family:Poppins; color:white; font-size: 2vw; font-weight:lighter;">Cycle through rounds of learning, multiple choice, and write-in to gain long-term memory.</p>
+                    <button class="dropbtn" id="myBtnBegin" style="margin:20px; background-color: white; color: #001945; font-weight: bold; cursor:pointer;" onclick="showElement(document.getElementById('explainer'))">How does it work?</button>
+                </div>
+                
+            </div>
+            <div style="width:10vw; display:flex; justify-content: center; align-items: center;  border-radius: 20px;"></div>
             <div class="lightGlow" style="width:40vw; display:flex; flex-direction: column; justify-content: center; align-items: center; background-color: wheat; border-radius: 20px;">
                 <p style="font-family:Poppins; color:#001945; font-size: 2vw; font-weight:bold;">Train</p>
                 <div>
@@ -199,38 +237,56 @@ color: var(--primary-light);
                     <input placeholder = "5" type = "number" min="3" id="termsperround" style="background-color: #001945; color: wheat; width:20vw; height:7vh; border-radius: 20px; text-align: center; display:flex; flex-direction: column; justify-content: center;" contenteditable>
 
                 </div> 
-                <button class="dropbtn" id="myBtnBegin" style="margin:20px; background-color: #001945; color: wheat;" onclick="doTrain()">Begin</button>
-            </div>
-            <div style="width:10vw; display:flex; justify-content: center; align-items: center;  border-radius: 20px;"></div>
-            <div class="lightGlow" style="width:40vw; height:60vh; display:flex; justify-content: center; align-items: center; background-color: wheat; border-radius: 20px; padding: 20px;">
-                <p style="font-family:Poppins; color:#001945; font-size: 2vw; font-weight:bold;">Train allows you to dynamically learn your Studysheet. Cycle through rounds of learning, multiple choice, and write-in to gain long-term memory.</p>
+                <button class="dropbtn" id="myBtnBegin" style="margin:20px; background-color: #001945; color: wheat; cursor: pointer;" onclick="doTrain()">Begin</button>
             </div>
         </div>
         
 
     </div>
-
-    <div style="width:100vw; height:80vh; align-items: center; text-align: center; color:#001945; align-items: center; display:none;" id="TermAndDef">
-        <div class="lightGlow" style="text-align:center; background-color: wheat; border-radius: 20px; width: 50vw; margin: auto; margin-bottom:0px; height:50vh;">
-            <div id="term_image_learn" style="display:none;">
-                <img src="output.png" alt="Image Preview" style="margin-top: 10px; width: auto; height: 250px; border-radius: 25px;">
-            </div>
-            <h1 style="font-size: auto; margin: 20px; margin-bottom: 0px; height:fit-content" id="term">
-                Term
-            </h1>
-            <hr style="border-top:3px solid #001945; color:#001945; background-color: #001945; margin-left: 20px; margin-right:20px;">
-            <div style="width:100%; text-align:center;" >
-                <h3 style="font-size:1.5vw" id="def">
-                    Definition of the term
-                </h3>
-            </div>
+    <div id="restarting" class="absolute horizontalFlex centerFlex fullAbsolute" style="position: absolute; transition: all 0.15s ease-in-out; z-index:2001; opacity: 0; pointer-events: none; background-color: rgba(0, 0, 0, 0.5);">
+        <div class="verticalFlex centerFlex lightGlow centerText" style="z-index:500; border-radius: 15px; padding: 20px; width: 30vw; background-color: wheat;">
+            <div style="margin-top: 10px; color:#001945; font-size:20px; text-align:center;"><strong>Are you sure you want to reset your progress on this Studysheet?</strong></div>
+            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%; margin-bottom: 0;" onclick="window.location.reload()">Yes</div>
+            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%;" onclick="hideElement(document.getElementById('restarting'))"">Cancel</div>
         </div>
-        <button class="dropbtn lightGlow" style="margin-top: 20px" onclick="gameLoop()">Continue</button>
+    </div>
+    <div style="width:100vw; height:80vh; align-items: center; text-align: center; color:#001945; align-items: center; display:none;" id="TermAndDef">
+        <div class="" style="text-align:left; border-radius: 20px; width: 50vw; margin: auto; margin-bottom:0px; height:50vh;">
+            <div style="height:100%; display:flex; flex-direction: column; justify-content: center;">
+                <div id="term_image_learn" style="display:none;">
+                    <img src="output.png" alt="Image Preview" style="margin-top: 10px; width: auto; height: 250px; border-radius: 25px;">
+                </div>
+                <div>
+                    <h1 style="font-size: auto; margin: 20px; margin-bottom: 0px; height:fit-content; color:wheat; font-weight: bold;" id="term">
+                        Term
+                    </h1>
+                    <hr style="border-top:3px solid #f5deb3; color:#001945; background-color: #001945; margin-left: 20px; margin-right:20px;">
+                </div>
+                
+                <div style="width:100%; text-align:left; margin-left:20px;" >
+                    <h3 style="font-size:1.5vw; color: white; font-weight: 400;" id="def">
+                        Definition of the term
+                    </h3>
+                </div>
+            </div>
+            
+        </div>
+        <button class="dropbtn lightGlow" style="margin-top: 20px" onclick="completeLearn()">Continue</button>
     </div>   
 
+    <div id="stats" class="absolute horizontalFlex centerFlex fullAbsolute" style="position: absolute; transition: all 0.15s ease-in-out; opacity: 0; pointer-events:none; z-index:1500; background-color: rgba(0, 0, 0, 0.5);">
+        <div class="verticalFlex centerFlex lightGlow centerText" style="z-index:500; border-radius: 15px; padding: 20px; width: 30vw; background-color: wheat; text-align: center;">
+            
+            <img src="assets/icons/stats.png" style="height:40px;">           
+            <div style="margin-top: 10px; color:#001945; font-size:20px;"><strong>Statistics</strong></div>
+            <div id="statsHolder">
+                
+            </div>
+            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%;" onclick="hideElement(this.parentNode.parentNode)">Ok</div>
+        </div>
+    </div>
 
-
-    <div class="multiplechoice" style = "display:none;" id="multchoice">
+    <div class="multiplechoice" style = "height:100%; display:none; flex-direction: column; justify-content: center;" id="multchoice">
         <!-- <h1 id="questionheader" class="header" style="color:wheat;">Multiple Choice</h1>
         
         <br>
@@ -253,14 +309,14 @@ color: var(--primary-light);
             </div>
 
             <h1 id="questionheader" class="centerText" style="color: var(--primary-light);">Multiple Choice</h1>
-            <div class="multiplechoicefooter">
+            <div class="multiplechoicefooter" style="background-color: #ffffff44; padding:15px; border-radius:20px;">
                 <div>
-                    <button id = "a" class="lightGlow">A</button>
-                    <button id = "b" class="lightGlow">B</button>
+                    <button id = "a" class="" onclick="checkMulti('a')">A</button>
+                    <button id = "b" class="" onclick="checkMulti('b')">B</button>
                 </div>
                 <div>
-                    <button id = "c" class="lightGlow">C</button>
-                    <button id = "d" class="lightGlow">D</button>
+                    <button id = "c" class="" onclick="checkMulti('c')">C</button>
+                    <button id = "d" class="" onclick="checkMulti('d')">D</button>
                 </div>
             </div>
         </div>
@@ -269,11 +325,11 @@ color: var(--primary-light);
 
 
 
-    <div class="inputdiv panelContainer" style="display: none;">
+    <div class="inputdiv panelContainer" style="display: none; height:100%;" id="write">
         <div class="panelContainer">
             <div class="horizontalFlex centerFlex">
                 <!-- <div class="noverticalshow correctIncorrect lightGlow" style="height: 0;"></div> -->
-                <div class="answerContainer horizontalFlex centerFlex" style="color: wheat; font-size: 40px; margin-bottom: 20px; text-align: center;" id="displayWord">
+                <div class="answerContainer horizontalFlex centerFlex" style="color: wheat; font-size: 40px; margin-bottom: 20px; text-align: center; font-weight: bold;" id="displayWord">
                     No Studysheet Detected.
                 </div>
             </div>
@@ -287,7 +343,7 @@ color: var(--primary-light);
             </div>
             <div class="horizontalFlex centerFlex">
                 <div class="answerContainer horizontalFlex centerFlex">
-                    <div style="border-radius: 25px; flex: 2; background-color: wheat;" class="horizontalFlex centerFlex buttonHover submitButton lightGlow" id="goButton" onclick="checkTrain()">> Go!</div>
+                    <div style="border-radius: 25px; flex: 2; background-color: wheat;" class="horizontalFlex centerFlex buttonHover submitButton lightGlow" id="goButton" onclick="checkWrite()">> Go!</div>
                 </div>
             </div>
         </div>
@@ -307,7 +363,28 @@ color: var(--primary-light);
     </div> -->
 
     <div style="color:wheat; font-family: Poppins; text-align: center; font-size: 2.2vw;" id="wherearewe"></div>
+    <div id="explainer" class="absolute horizontalFlex centerFlex fullAbsolute" style="position: absolute; transition: all 0.15s ease-in-out; opacity: 0; pointer-events:none; z-index:1500; background-color: rgba(0, 0, 0, 0.5);">
+        <div class="" style="z-index:500; border-radius: 15px; padding: 30px; width: 40vw; height:80vh; background-color: wheat; text-align: center; overflow-y: scroll;">
+            <div style="width:100%; align-items: right; justify-content: right; display:flex;">
+                <img style="height: 30px; width: 30px; right:0;" src="assets/icons/closeCircle.svg" class="closeIcon" onclick="hideElement(this.parentNode.parentNode.parentNode)">
+            </div>
 
+            
+            <div style="margin-top: 10px; color:#001945; font-size:20px;"><strong>About Train</strong></div>
+            <div style="margin:5px; color:#001945; font-size:20px; font-weight: lighter;">Train is a scaling, repetition based, memory training mode. It works best when you do not previously know the material being studied.</div>
+            <div style="margin:5px; color:#001945; font-size:20px; font-weight: lighter;">Train uses three modes to help you ease into your knowledge:</div>
+            <div style="margin:5px; color:#001945; font-size:20px; font-weight: lighter;"> - A learn mode, where you are told both the question and answer</div>
+            <div style="margin:5px; color:#001945; font-size:20px; font-weight: lighter;"> - A multiple choice mode, where you are given multiple options and must choose the correct one</div>
+            <div style="margin:5px; color:#001945; font-size:20px; font-weight: lighter;"> - A write mode, where you must fill in the correct answer.</div>
+            <div style="margin:5px; color:#001945; font-size:20px; font-weight: lighter;">Train groups questions into smaller groups so that you can learn portions at a time. You can choose the size of these groups.</div>
+            <div style="margin:5px; color:#001945; font-size:20px; font-weight: lighter;">To ensure you retain the information, Train quizzes you on previous "groups" in later ones.</div>
+            <div style="margin:5px; color:#001945; font-size:20px; font-weight: lighter;">To keep track of your progress, the bar at the top of the screen will display your progress through the Studysheet as a whole, while the bar at the bottom will show your progress through the current group.</div>
+            <!-- <div style="width:100%; align-items: center; justify-content: center; display:flex;">
+                <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%;" onclick="hideElement(this.parentNode.parentNode.parentNode)">Ok</div>
+
+            </div> -->
+        </div>
+    </div>
     
 </body>
 </html>

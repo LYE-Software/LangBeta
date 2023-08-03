@@ -74,7 +74,7 @@ class Studysheet {
     }
 
     convertToSingle(){
-        //does not work, pls fix
+        //This returns an array
         var tmpTerms = []
         for (var i = 0; i<this.terms.length; i++){
             if (!this.terms[i].isMulti){
