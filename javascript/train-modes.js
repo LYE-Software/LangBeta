@@ -27,7 +27,7 @@ function checkWrite(){
     if (usrInput == "" || usrInput == null){
         console.log("[WRITE] nothing detected")
     } else {
-        console.log("[WRITE]Checking answer by comparing "+usrInput+" to "+term.answer)
+        console.log("[WRITE]Checking answer by comparing "+usrInput+" to "+term.answer.toLowerCase())
         if (usrInput == term.answer){
             console.log("[WRITE]Answer determined to be correct")
             // console.log("Advancing T "+t+"which would be "+group[t])

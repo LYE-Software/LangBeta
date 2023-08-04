@@ -107,6 +107,9 @@ function build(elem){
     elem.style.backgroundColor = "#f5deb3"
     document.getElementById("name").innerHTML = "About Application"
     data = `
+    <div style="display:flex; justify-content:space-evenly;">
+        <img style="height:100px; " src='assets/logos/Lang 5.png'>  
+    </div>
     <p>Lang Client: Version 5.0.0</p>
     <p>Lang Servers: LS Version 2</p>
     <p>Lang Assistant: LA Version 2</p>
