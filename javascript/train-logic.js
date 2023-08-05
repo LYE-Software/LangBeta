@@ -41,7 +41,7 @@ function doTrain(){
     } else if (document.getElementById("termsperround").value>=sheet.length) {
         groupLength = sheet.length-1;
     }
-    
+    groupLength = document.getElementById("termsperround").value;
     reviewIDX = calculateReview(groupLength);
 
     //dividing questions into groups
