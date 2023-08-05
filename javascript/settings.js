@@ -107,13 +107,19 @@ function build(elem){
     elem.style.backgroundColor = "#f5deb3"
     document.getElementById("name").innerHTML = "About Application"
     data = `
-    <p>Lang Client: Version 5.0.0</p>
-    <p>Lang Servers: LS Version 2</p>
-    <p>Lang Assistant: LA Version 2</p>
-    <p>Lang is owned by Lye Software, Inc.</p>
-    <div style="display:flex; justify-content:space-evenly;">
-        <img style="height:75px; " src='https://raw.githubusercontent.com/nwvbug/nwvbug-logos/main/lye%20logo/lyelogo.png'>  
+    <div>
+        <div style="display:flex; justify-content:space-evenly;">
+        <img style="height:100px; " src='assets/logos/Lang 5.png'>  
+        </div>
+        <p>Lang Client: Version 5.0.0</p>
+        <p>Lang Servers: LS Version 2</p>
+        <p>Lang Assistant: LA Version 2</p>
+        <p>Lang is owned by Lye Software, Inc.</p>
+        <div style="display:flex; justify-content:space-evenly;">
+            <img style="height:75px; " src='https://raw.githubusercontent.com/nwvbug/nwvbug-logos/main/lye%20logo/lyelogo.png'>  
+        </div>
     </div>
+   
     `
     append(data)
 }

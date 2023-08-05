@@ -4,12 +4,14 @@
 
 
 //saving & creator stuff
-function saveToCloud(lucy){
+function saveToCloud(lucy, dl){
     sessionid = localStorage.getItem("usertoken");
     var okToUpload = true;
     customusername = localStorage.getItem("customusername");
     // document.getElementById("sendingLoader").style.display="";
-    showElement(document.getElementById("sendingLoader"));
+    if (!lucy){
+        showElement(document.getElementById("sendingLoader"));
+    }
     if(document.getElementById("sstitle").innerHTML == "" && !lucy){
         showPopup("You forgot to name your Studysheet!")
         hideElement(document.getElementById("sendingLoader"));
@@ -103,7 +105,12 @@ function saveToCloud(lucy){
 
         console.log("i was: "+tester+" when it stopped and ovdivarr length was: "+overallDivArray.length)
 
+        if (dl){
+            okToUpload = false;
+            save(JSON.stringify(studysheet), document.getElementById("sstitle").innerHTML)
+            hideElement(document.getElementById("sendingLoader"));
 
+        }
 
         if (okToUpload == true){
            
@@ -139,7 +146,7 @@ function saveToCloud(lucy){
                     if (xhr.readyState === 4) {
                         console.log(xhr.status);
                         console.log(xhr.responseText);
-                        //window.location.href="homepage.html";
+                        window.location.href="homepage.html";
                     }
                 };
                 var data = toUpload;
@@ -524,6 +531,8 @@ function sendLucyMessage(){
         showPopup("You cannot send an empty message.")
         document.getElementById("lucyLoader").style.display = "none";
     } else{
+        createUserBubble(message)
+        showElement(document.getElementById("assistantThinking"))
         var data = saveToCloud(true);
         var xhr = new XMLHttpRequest();
         xhr.open("POST", url);
@@ -537,7 +546,8 @@ function sendLucyMessage(){
                     console.error("Langbot internal server error")
                     createBubble("Sorry, we encountered an error. You can try again, or edit your query.")
                     document.getElementById("lucyLoader").style.display = "none";
-
+                    hideElement(document.getElementById("assistantThinking"))
+                    showPopup("Lang Assistant encountered an error. You can try again, or edit your query.")
                 }
                 else{
                     addResponse(xhr.responseText);
@@ -567,7 +577,8 @@ function addResponse(studysheetReturned){
         "Let me know if there's anything else I can do for you."
     ]
     document.getElementById("insideCreator").innerHTML = "";
-    
+    hideElement(document.getElementById("assistantThinking"))
+
     response = responses[Math.floor(Math.random() * (responses.length))];
     parsedSheet = studysheetReturned.split("\n");
     for (i = 0; i<parsedSheet.length; i++){
@@ -686,3 +697,23 @@ var arrowSVG = `
 </svg>
 
 `
+
+
+function save(data, title) {
+    filename = title+".lang"
+    
+    const blob = new Blob([data], {type: ''});
+    if(window.navigator.msSaveOrOpenBlob) {
+        window.navigator.msSaveBlob(blob, filename);
+    }
+    else{
+        const elem = window.document.createElement('a');
+        elem.href = window.URL.createObjectURL(blob);
+        elem.download = filename;        
+        document.body.appendChild(elem);
+        elem.click();        
+        document.body.removeChild(elem);
+    }
+
+    
+}

@@ -117,7 +117,7 @@ class Term {
     }
 
     check(against){
-        if (against == this.answer){
+        if (against.toLowerCase() == this.answer.toLowerCase()){
             return true;
         }
         return false;

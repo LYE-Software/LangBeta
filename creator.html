@@ -266,6 +266,18 @@
             <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%;" onclick="hideElement(document.getElementById('popup'))">Ok</div>
         </div>
     </div>
+
+    <div id="assistantThinking" class="popupContainer" style="z-index:2000;">
+        <div class="popup centerFlex verticalFlex">
+            <div style="margin: 50px;">
+                <img style="height:10vh;" src="assets/logos/Lang Assistant by Lang Study.png" alt="Assistant">
+            </div>
+            <div style="margin-bottom: 15px;">The Lang Assistant is processing your query...</div>
+            <div style="width:100%; display:flex; justify-content: center;" id="assistantThinkingLoader">
+                <div class="lds-ellipsis" style="color:var(--primary-dark); " ><div></div><div></div><div></div><div></div></div>
+            </div>
+        </div>
+    </div>
     
     <div id="savePopup" class="popupContainer">
         <div class="verticalFlex centerFlex popup">
@@ -397,7 +409,7 @@
 
         <!-- <div style="display:flex; flex-direction: column; margin-right: 20px; justify-content: space-between; height: 60%;">
             <div class="lightGlow" style="background-color: var(--primary-light); width: 100px; border-radius: 25px;">
-                 <div class="creatorIcon" onclick="downloadVerbs('s')" id="exporter" style="display:none;">
+                 <div class="creatorIcon" onclick="saveToCloud(false, true)" id="exporter" style="display:none;">
                     <img src="save.svg" style="height:50px; color:var(--primary-dark);">
                     <div class="tooltipText">
                         Export
