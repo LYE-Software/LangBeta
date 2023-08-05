@@ -10,14 +10,12 @@
     <script src="javascript/creator.js"></script>
     <script src="javascript/Studysheet.js"></script>
     <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="sidebar.css">
     <link rel="icon" href="circular lang icon.png">
     <style>
         .langCreatorContainer {
             position: relative;
             box-sizing: border-box;
-
-            display: flex;
-            flex-direction: column;
 
             overflow-y: scroll;
             overflow-x: hidden;
@@ -27,8 +25,6 @@
 
             width: 90vw;
             max-width: 700px;
-
-            max-height: 80%;
 
             padding: 5px;
             /* border-top: 5px solid var(--primary-light);
@@ -384,7 +380,7 @@
         </div>
     </div>
 
-    <div class="horizontalFlex" style="justify-content: center; width: 100vw; height: calc(84vh - 22px);">
+    <div class="horizontalFlex" style="padding-top: 100px; padding-bottom: 200px; width: 100vw; justify-content: center;">
         <div id="langCreatorContainer" class="langCreatorContainer innerLightGlow">
             <div class="termDefContainer">
                 <div style="margin-right: 25px;">Title: </div>
@@ -398,7 +394,8 @@
                 Add New
             </div>
         </div>
-        <div style="display:flex; flex-direction: column; margin-right: 20px; justify-content: space-between; height: 60%;">
+
+        <!-- <div style="display:flex; flex-direction: column; margin-right: 20px; justify-content: space-between; height: 60%;">
             <div class="lightGlow" style="background-color: var(--primary-light); width: 100px; border-radius: 25px;">
                  <div class="creatorIcon" onclick="downloadVerbs('s')" id="exporter" style="display:none;">
                     <img src="save.svg" style="height:50px; color:var(--primary-dark);">
@@ -426,11 +423,6 @@
                     <div style="display: none;">
                         <div style="display: flex; flex-direction: column; padding:10px;" class="ttL">
                             <div class="flexSpacer" style="overflow-y: scroll; padding: 25px; margin-bottom: 0; display: flex; flex-direction: column-reverse" id="messageCont">
-                                
-                                <!-- <div class="bubbleContainer">
-                                    <div class="blueBubble bubble">Make a studysheet of states and capitals</div>
-                                    
-                                </div> -->
                                 <div class="bubbleContainer">
                                     <div class="whiteBubble bubble">Lang makes no assurance about the accuracy of this information. Make sure to verify everything that I generate.</div>
                                 </div>
@@ -454,10 +446,22 @@
                     </div>
                 </div> 
             </div>
-           
-            
+        </div> -->
+    </div>
+
+
+    <div class="rightSidebarContainer">
+        <div class="whitebackdrop">
+            <button class="newbutton">
+                <img src="save.svg" style="height:50px; color:var(--primary-dark);">
+            </button>
+            <button class="newbutton">
+                <img src="assets/icons/langsave.svg" style="height:50px;">
+            </button>
+            <button class="newbutton">
+                <img src="assets/icons/Lang Tutor.svg" style="height:50px;">
+            </button>
         </div>
-        
     </div>
 </body>
 <style>
@@ -659,4 +663,5 @@
     });
 
 </script>
+<script src="javascript/sidebar.js"></script>
 </html>

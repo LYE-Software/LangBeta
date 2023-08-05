@@ -2,8 +2,7 @@
 .rightSidebarContainer {
     position: fixed;
     left: 20px;
-    bottom: 0px;
-    height: 100vh;
+    top: 0px;
     margin-right: 10px;
 
     display: flex;
@@ -30,15 +29,6 @@
 
 .rightSidebarContainer > div > button > img {
     height: 35px;
-}
-
-
-.whiteBackdrop {
-    background-color: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-
-    pointer-events: all;
 }
 
 .newbutton {

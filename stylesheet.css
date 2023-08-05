@@ -75,8 +75,9 @@
 
 body {
     margin: 0;
-    background-color: var(--primary-dark);
     background: linear-gradient(180deg, #001945 35.94%, #000011 100%);
+    background-attachment: fixed;
+
 
     /* font-family: 'Josefin Sans', sans-serif; */
     font-family: 'Poppins', sans-serif;
@@ -227,7 +228,11 @@ input {
     padding: 20px; 
     max-width: 400px; 
     width: 90vw; 
-    background-color: var(--primary-light);
+    /* background-color: var(--primary-light); */
+
+    background-color: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
 
