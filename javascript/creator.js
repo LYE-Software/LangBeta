@@ -168,7 +168,7 @@ function creatorModeSelect(){
 
     if (window.localStorage.getItem("doLocal")=="true"){
         document.getElementById("localAdvanced").style.display = "";
-        document.getElementById("exporter").style.display = "";
+        document.getElementById("exporter").style.display = "block";
     } else {
         console.log("Local Studying is disabled.")
     }

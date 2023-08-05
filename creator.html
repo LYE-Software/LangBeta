@@ -464,10 +464,10 @@
 
     <div class="rightSidebarContainer">
         <div class="whitebackdrop">
-            <button class="newbutton">
+            <button class="newbutton" id="exporter" style="display: none;">
                 <img src="save.svg" style="height:50px; color:var(--primary-dark);">
             </button>
-            <button class="newbutton">
+            <button class="newbutton" onclick="showSavePopup()">
                 <img src="assets/icons/langsave.svg" style="height:50px;">
             </button>
             <button class="newbutton">
@@ -521,12 +521,12 @@
 </style>
 <script>
 
-    var wage = document.getElementById("lucyMessage");
-    wage.addEventListener("keydown", function (e) {
-        if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
-            sendLucyMessage()
-        }
-    });
+    //var wage = document.getElementById("lucyMessage");
+    //wage.addEventListener("keydown", function (e) {
+    //    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+    //        sendLucyMessage()
+    //    }
+    //});
     var imgUrl;
     var endData;
     //Trigger now when you have selected any file 
