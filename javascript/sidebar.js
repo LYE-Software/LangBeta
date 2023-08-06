@@ -5,6 +5,7 @@ var headerHeight = header.getBoundingClientRect().height + functionRow.getBoundi
 
 var rightSidebars = document.getElementsByClassName("rightSidebarContainer");
 var leftSidebars = document.getElementsByClassName("leftSidebarContainer");
+var fixedElements = document.getElementsByClassName("fixedSidebar")
 
 var sidebars = [];
 for (var i = 0; i < rightSidebars.length; i++) {
@@ -12,6 +13,9 @@ for (var i = 0; i < rightSidebars.length; i++) {
 }
 for (var i = 0; i < leftSidebars.length; i++) {
     sidebars.push(leftSidebars[i]);
+}
+for (var i = 0; i < fixedElements.length; i++) {
+    sidebars.push(fixedElements[i]);
 }
 
 
