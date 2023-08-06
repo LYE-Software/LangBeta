@@ -13,6 +13,169 @@
     <link rel="stylesheet" href="sidebar.css">
     <link rel="icon" href="circular lang icon.png">
     <style>
+
+        @media (min-width: 1000px) {
+            #langBotContainer {
+                position: relative !important;
+                top: 0 !important;
+            }
+        }
+
+        #langBotContainer {
+            position: fixed;
+            right: 10px;
+            width: 400px;
+            height: 500px;
+
+
+            border-radius: 25px;
+            box-sizing: border-box;
+
+            transition: width 0.25s ease-in-out;
+        }
+
+        #langBotContainer > div {
+            transition: opacity 0.1s;
+
+            padding: 10px;
+        }
+
+        
+
+        .message {
+            display: flex;
+            transition: transform 0.25s;
+        }
+
+        .message:hover {
+            display: flex;
+            transform: scale(1.02);
+        }
+
+        .message > div {
+            word-wrap: anywhere;
+            padding: 10px;
+            margin: 5px;
+            border-radius: 15px;
+        }
+
+        .userSentMessage {
+            justify-content: flex-end;
+            margin-left: 50px;
+        }
+
+        .userSentMessage > div {
+            background-color: var(--primary-light);
+            color: black;
+        }
+
+        .botSentMessage {
+            margin-right: 50px;
+        }
+        
+        .botSentMessage > div {
+            background-color: var(--primary-dark);
+            color: var(--primary-light)
+        }
+
+        .messageInput {
+            position: relative;
+
+            padding: 5px;
+            margin-bottom: 20px;
+
+            box-sizing: border-box;
+
+            width: 100%;
+
+            transition: transform 0.25s;
+        }
+
+        .messageInput:hover {
+            transform: scale(1.02);
+        }
+
+        .messageInput > input {
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+
+            width: 100%;
+
+            height: 50px;
+            padding: 10px;
+            padding-right: 60px;
+
+            background-color: var(--primary-light);
+            border-radius: 25px;
+
+            border: 2px solid var(--primary-dark);
+        }
+
+        .messageInput > button {
+            position: absolute;
+            right: 0;
+
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+
+            border: none;
+
+            border: 2px solid var(--primary-dark);
+        }
+
+        .hiddenTypingIndicators {
+            height: 0 !important;
+            opacity: 0;
+            margin: 0 !important;
+        }
+
+        #typingIndicators {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            width: 75px;
+            height: 30px;
+            margin: 10px;
+            margin-left: 0px;
+            padding: 10px;
+            padding-left: 7px;
+            box-sizing: border-box;
+
+            transition: all 0.25s ease-out;
+        }
+
+        #typingIndicators > div {
+            transform: translateY(-3px);
+
+            background-color: var(--primary-dark);
+            border-radius: 50px;
+            width: 15px;
+            height: 15px;
+
+            animation: typingIndicators;
+            animation-duration: 2s;
+            animation-iteration-count: infinite;
+        }
+
+        @keyframes typingIndicators {
+            0% {
+                opacity: 1;
+                transform: translateY(-3px);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: translateY(3px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(-3px);
+            }
+        }
+
+
         .langCreatorContainer {
             position: relative;
             box-sizing: border-box;
@@ -61,6 +224,12 @@
 
             display: flex;
             justify-content: center;
+
+            transition: transform 0.25s;
+        }
+
+        .termDefContainer:hover {
+            transform: scaleX(1.02)
         }
 
         .term {
@@ -392,7 +561,7 @@
         </div>
     </div>
 
-    <div class="horizontalFlex" style="padding-top: 100px; padding-bottom: 200px; width: 100vw; justify-content: center;">
+    <div class="horizontalFlex" style="padding-top: 100px; padding-bottom: 200px; width: 100vw; justify-content: center; align-items: flex-start;">
         <div id="langCreatorContainer" class="langCreatorContainer innerLightGlow">
             <div class="termDefContainer">
                 <div style="margin-right: 25px;">Title: </div>
@@ -402,8 +571,34 @@
 
             </div>
             <input id="hiddeninput" style="height: 0; margin: 0; padding: 0; border: 0;"></input>
-            <div class="termDefContainer" onclick="makeInputs('single')" style="cursor:grab; user-select: none;">
+            <div class="termDefContainer" onclick="makeInputs('single')" style="cursor:grab; user-select: none; margin-top: 0;">
                 Add New
+            </div>
+        </div>
+
+        <div id="langBotContainer" class="whiteBackdrop fixedSidebar">
+            <div class="verticalFlex" style="height: 100%;">
+                <div style="flex: 1;">
+                    <div class="message botSentMessage">
+                        <div>
+                            Hi. I'm Lang Assistant! <strong>Ask me to create a new Studysheet or make changes to an existing one</strong>. Click <a href='langAssistantFAQ.html' style="color:wheat;">here</a> to learn about me.
+                        </div>
+                    </div>
+                    <div class="message botSentMessage">
+                        <div>
+                            I can't gurantee the integrity of information I write. You should always double check my answers.
+                        </div>
+                    </div>
+                    <div id="typingIndicators" class="hiddenTypingIndicators">
+                        <div style="animation-delay: 0"></div>
+                        <div style="animation-delay: 0.15s"></div>
+                        <div style="animation-delay: 0.3s"></div>
+                    </div>
+                </div>
+                <div class="messageInput">
+                    <input class="lightGlow" placeholder="Ask Lang Assistant">
+                    <button class="newbutton" style="margin:0;"></button>
+                </div>
             </div>
         </div>
 
@@ -462,7 +657,7 @@
     </div>
 
 
-    <div class="rightSidebarContainer">
+    <div id="rightSidebarContainer" class="rightSidebarContainer">
         <div class="whitebackdrop">
             <button class="newbutton" id="exporter" style="display: none;">
                 <img src="save.svg" style="height:50px; color:var(--primary-dark);">
@@ -470,7 +665,7 @@
             <button class="newbutton" onclick="showSavePopup()">
                 <img src="assets/icons/langsave.svg" style="height:50px;">
             </button>
-            <button class="newbutton">
+            <button class="newbutton" onclick="toggleLangBot()">
                 <img src="assets/icons/Lang Tutor.svg" style="height:50px;">
             </button>
         </div>
@@ -520,6 +715,53 @@
 
 </style>
 <script>
+
+    var typingIndicators = document.getElementById("typingIndicators")
+
+    function showTypingIndicators() {
+        typingIndicators.classList.add("hiddenTypingIndicators")
+    }
+
+    function hideTypingIndicators() {
+        typingIndicators.classList.remove("hiddenTypingIndicators")
+    }
+
+    var langBotContainer = document.getElementById("langBotContainer");
+    var visible = true
+    function toggleLangBot() {
+        if (!visible) {
+            langBotContainer.style.width = 400
+            //langBotContainer.style.opacity = 1
+
+            setTimeout(function () {
+                langBotContainer.children[0].style.opacity = 1
+                langBotContainer.children[0].style.display = "flex"
+            }, 150);
+        } else {
+            langBotContainer.style.width = 0
+            //langBotContainer.style.opacity = 0
+            langBotContainer.children[0].style.opacity = 0
+            setTimeout(function () {
+                langBotContainer.children[0].style.display = "none"
+            }, 100);
+        }
+        visible = !visible
+    }
+
+    var rightSidebarContainer = document.getElementById("rightSidebarContainer")
+    document.addEventListener("scroll", function () {
+        console.log(document.body.getBoundingClientRect().width)
+        if (document.body.getBoundingClientRect().width > 1000) {
+            var scrollPos = window.scrollY;
+            var fixedPos = parseInt(rightSidebarContainer.style.top) - (rightSidebarContainer.getBoundingClientRect().height / 2)
+            var pos = scrollPos + fixedPos - (langBotContainer.getBoundingClientRect().height / 2)
+            langBotContainer.style.transform = "translateY(" + pos + "px)"
+        } else {
+            langBotContainer.style.transform = ""
+        }
+        
+        
+    })
 
     //var wage = document.getElementById("lucyMessage");
     //wage.addEventListener("keydown", function (e) {
