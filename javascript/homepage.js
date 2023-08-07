@@ -185,7 +185,7 @@ async function getLibraryList(){
                     div3.onclick = function(){
                         var studysheetname = document.getElementById(this.id).getAttribute("studysheet")       
                         window.localStorage.setItem("chosenSheet", studysheetname)
-                        window.location.href="studysheetpage.html";
+                        window.location.href="studysheetpage-new.html";
                     }
 
 
