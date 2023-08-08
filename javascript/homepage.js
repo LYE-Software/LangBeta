@@ -1,4 +1,4 @@
-var newarr = [];
+var library = [];
 async function getLibraryList(){
     
     // check for local studying
@@ -46,24 +46,27 @@ async function getLibraryList(){
         console.log("inside the else")
         sessionid = window.localStorage.getItem("usertoken")
         console.log(sessionid);
-        serverData = await httpGet("https://backend.langstudy.tech/"+sessionid+"/returnNameAndList", false)
+        serverData = await httpGet("https://backend.langstudy.tech/v2/home", false, sessionid)
         // await fetch('https://backend.langstudy.tech/"+sessionid+"/returnNameAndList').then(function(response) {
         //     return response.blob();
         // }).then(function(response) {
         //     serverData = response.text();
         // });        
         console.log("[TOTAL SERVER DATA] "+serverData)
-        var arrayOfData = serverData.split("sussyamogusnobodywoulddarewritethisintheirstudysheet758429574823");
-        username = arrayOfData[0];
-        library = arrayOfData[1];
-        console.log(username);
-        if (serverData == "Failed"){
+        try {
+             json = JSON.parse(serverData)
+        } catch(error){
+            console.error("IMPROPER JSON")
+            json = null;
+        }
+
+        if (json.error == "session_invalid"){
             failedSignIn();
         }
-        else if (serverData == null || serverData == ""){
+        else if (json == null || json == ""){
             console.warn("Server Connection Failed! Trying Again...")
             serverData = await httpGet("https://backend.langstudy.tech/"+sessionid+"/returnNameAndList", false)
-
+            json = JSON.parse(serverData)
             // await fetch('https://backend.langstudy.tech/"+sessionid+"/returnNameAndList').then(function(response) {
             //     return response.blob();
             // }).then(function(response) {
@@ -71,14 +74,11 @@ async function getLibraryList(){
             // });
 
             console.log("[TOTAL SERVER DATA: SECOND TRY] "+serverData)
-            var arrayOfData = serverData.split("sussyamogusnobodywoulddarewritethisintheirstudysheet758429574823");
-            username = arrayOfData[0];
-            library = arrayOfData[1];
-            console.log(username);
-            if (serverData == "Failed"){
+            
+            if (json.error == "session_invalid"){
                 failedSignIn();
             }
-            else if (serverData == null || serverData == ""){
+            else if (json == null || json == ""){
                 console.error("Server Connection Failed upon second try. Aborting.")
                 failedServerConnectionOnStart();
             }
@@ -90,37 +90,30 @@ async function getLibraryList(){
         //     failedServerConnectionOnStart();
         // }
         // console.log("bruh "+broken);
-        if(username == "invalidsession"){
-            failedSignIn();
-        }
-        else if(library == "[]"){
+        
+        library = json.studysheets
+        console.warn("LIBRARY: "+library)
+        if(library == "[]"){
             console.log("1")
-             // document.getElementById("yourstudysheets").innerHTML = "Start by uploading a studysheet!";
+             noStudySheets()
         } else if (library == ""){
             noStudySheets()
             console.log("2")
         } else if (library == null){
-            failedSignIn() //commit please
+            noStudySheets()
             console.log("lib = null")
             console.log("3")
         }
         else{
-            arrayOfData = library.split("-rowseperator-");
-           
-            console.log("arrayofdata: "+arrayOfData)
-            for (i=0;i<arrayOfData.length;i++){
-                row = arrayOfData[i]
-                row = row.split("-seperator-")
-                console.log("row: "+row)
-                newarr.push(row[0])
-                
-            }
-            console.log("newarr: "+newarr)
-            if (newarr==""){
+            
+            
+            username = json.username
+            
+            if (library==""){
                 console.log("4")
                 // document.getElementById("yourstudysheets").innerHTML = "Start by uploading a studysheet!";
                 noStudySheets()
-            } else if (newarr == "invalidsession"){
+            } else if (library == "invalidsession"){
                 console.log("5")
                 failedSignIn();
             } 
@@ -128,8 +121,8 @@ async function getLibraryList(){
                 document.getElementById("homeusername").innerHTML = "Hello, "+username;
                 window.localStorage.setItem("customusername", username);
                 hideLoadingView();
-                window.localStorage.setItem("studysheetcount", newarr.length);
-                for (i=0;i<newarr.length;i++){
+                window.localStorage.setItem("studysheetcount", library.length);
+                for (i=0;i<library.length;i++){
                     console.log("inside for")          
                     // var sheet = `
                     // <div style="display: flex; align-items: center; background-color: var(--primary-dark);">
@@ -148,7 +141,7 @@ async function getLibraryList(){
                     div1.style.backgroundColor = "var(--primary-dark)";
                     div1.id = i;
                     div1.onclick = function(){
-                        for (i=0;i<newarr.length;i++){
+                        for (i=0;i<library.length;i++){
                             document.getElementById(i).classList.remove("selected");
                             document.getElementById("studysheet"+i).classList.remove("selected");
                             document.getElementById("studysheetDel"+i).classList.remove("selected");
@@ -157,18 +150,17 @@ async function getLibraryList(){
                         
                         document.getElementById("studysheet"+this.id).classList.add("selected");
                         document.getElementById("studysheetDel"+this.id).classList.add("selected");
-                        tmp = arrayOfData[this.id]
-                        tmp = tmp.split("-seperator-")
-                        document.getElementById("termCount").innerHTML = tmp[3];
-                        document.getElementById("lastModified").innerHTML = tmp[2];
-                        document.getElementById("created").innerHTML = tmp[1];
+                        tmp = library[this.id]
+                        document.getElementById("termCount").innerHTML = tmp.length;
+                        document.getElementById("lastModified").innerHTML = tmp.date_modified;
+                        document.getElementById("created").innerHTML = tmp.date_created;
                         document.getElementById("createdBy").innerHTML = username;
 
                     }
                     div2 = document.createElement("div");
                     div2.className = "studysheetName";
                     div2.style.color = "var(--primary-light)"
-                    div2.innerHTML = newarr[i];
+                    div2.innerHTML = library[i].name;
                     div1.append(div2);
 
                     document.getElementById("studysheetGridContainer").append(div1);
@@ -180,7 +172,7 @@ async function getLibraryList(){
                     div3.style.backgroundColor = "var(--primary-dark)";
                     div3.innerHTML=`<svg style="fill: var(--primary-light)" class="studysheetEdit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488.728 488.728" xmlns:v="https://vecta.io/nano"><path d="M487.147 462.52l-36.4-167.6c0-4.2-2.1-7.3-5.2-10.4l-261.3-261.3c-20-22.9-74.3-38.1-112.4 0l-47.9 47.9c-31 31-31 81.4 0 112.4l261.3 261.3c2.1 2.1 5.2 4.2 9.4 5.2l168.6 38.5c10.1 1.5 29.1-4.9 23.9-26zm-434.1-308.1c-15.6-15.6-15.6-39.6 0-55.2l47.9-47.9c15.2-15.2 40-15.2 55.2 0l238.4 238.4h-27.1c-11.4 0-20.8 9.4-20.8 20.8v34.3h-34.3c-11.4 0-20.8 9.4-20.8 20.8v26.1l-238.5-237.3zm280 261.3v-29.2h34.3c18 1.7 20.8-16.5 20.8-20.8v-34.4h29.2l24 109.3-108.3-24.9z"/></svg>`
                     div3.style.stroke = "var(--primary-light)";
-                    div3.setAttribute("studysheet", newarr[i]);
+                    div3.setAttribute("studysheet", library[i].name);
                     div3.id = "studysheet"+i;
                     div3.onclick = function(){
                         var studysheetname = document.getElementById(this.id).getAttribute("studysheet")       
@@ -194,7 +186,7 @@ async function getLibraryList(){
                     div5.style.alignItems = "center";
                     div5.style.justifyContent = "center";
                     div5.style.backgroundColor = "var(--primary-dark)";
-                    div5.setAttribute("studysheet", newarr[i]);
+                    div5.setAttribute("studysheet", library[i].name);
                     div5.id = "studysheetDel"+i;
                     div5.onclick = async function(){
 
@@ -208,11 +200,11 @@ async function getLibraryList(){
                     document.getElementById("studysheetGridContainer").append(div3);
 
                 }
-                tmp = arrayOfData[0]
-                tmp = tmp.split("-seperator-")
-                document.getElementById("termCount").innerHTML = tmp[3];
-                document.getElementById("lastModified").innerHTML = tmp[2];
-                document.getElementById("created").innerHTML = tmp[1];
+                
+                tmp = library[0]
+                document.getElementById("termCount").innerHTML = tmp.length;
+                document.getElementById("lastModified").innerHTML = tmp.date_modified;
+                document.getElementById("created").innerHTML = tmp.date_created;
                 document.getElementById("createdBy").innerHTML = username;
                 document.getElementById("0").classList.add("selected");
                 document.getElementById("studysheet0").classList.add("selected");
@@ -238,12 +230,12 @@ function failedSignIn() {
 async function deleteSS(){
     index = document.getElementsByClassName("selected")[0].id;
     console.log("index is: "+index)
-    console.log("newarr[index] is: "+newarr[index])
+    console.log("newarr[index] is: "+library[index])
     document.getElementById("loadingscreen").style.opacity = "1";
     document.getElementById("loadingscreen").classList = "verticalFlex";
     document.getElementById("loadingscreen").style.display = "flex"
     hideElement(document.getElementById("deleteConfirmation"))
-    link = "https://backend.langstudy.tech/"+sessionid+"/Studysheets/"+ newarr[index]+"/delete"
+    link = "https://backend.langstudy.tech/"+sessionid+"/Studysheets/"+ library[index].name+"/delete"
     console.log("link is: "+link)
     await httpGet(link)
     window.location.reload()
@@ -260,8 +252,8 @@ function failedServerConnectionOnStart(){
 function goToSSPage(){
     index = document.getElementsByClassName("selected")[0].id;
     console.log("index is: "+index)
-    console.log("newarr[index] is: "+newarr[index])
-    window.localStorage.setItem("chosenSheet", newarr[index])
+    console.log("newarr[index] is: "+library[index])
+    window.localStorage.setItem("chosenSheet", library[index].name)
     window.location.href="studysheetpage-new.html";
 }
 
