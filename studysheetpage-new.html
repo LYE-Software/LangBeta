@@ -34,7 +34,7 @@
         }
         
         .termListMain {
-            max-width: 650px;
+            max-width: calc(40vw + 200px);
             width: 95vw;
             box-sizing: border-box;
         }
@@ -290,6 +290,44 @@
                 height: 100%;
             }
 
+        }
+
+        @media (max-width: 700px) {
+            .leftSidebarContainer {
+                position: relative;
+
+                left: 0px;
+                top: 0px !important;
+
+                margin-top: 30px;
+
+                width: 100%;
+                height: auto;
+
+                transition: none;
+            }
+
+            .leftSidebarContainer > div {
+                background: none;
+                height: auto;
+            }
+
+            .leftSidebarPreview {
+                display: none;
+            }
+
+            .leftSidebarOptions {
+                flex-direction: row;
+                flex-wrap: wrap;
+            }
+
+            .rightSidebarContainer {
+                display: none;
+            }
+
+            #studysheetname {
+                display: none;
+            }
         }
 
         /* .termList {
