@@ -32,10 +32,6 @@
             pointer-events: none;
         }
 
-        body {
-            overflow-y: visible;
-        }
-
         .button {
             width: auto;
             padding: 15px;
@@ -63,6 +59,9 @@
 
         body {
             background: linear-gradient(180deg, #001945 35.94%, #000011 100%);
+            background-attachment: fixed;
+            background-color: var(--primary-dark);
+            overflow-y: visible;
         }
 
         #contentContainer {
@@ -449,11 +448,6 @@
     </div>
 </body> 
 <script>
-    window.onscroll = function() {
-        console.log(window.pageYOffset)
-        document.body.style.backgroundPositionY = (window.pageYOffset + 0) + "px";
-    }
-
     function noStudySheets() {
         document.getElementById("nostudysheets").style.opacity = 1;
         document.getElementById("nostudysheets").style.pointerEvents = "all"
