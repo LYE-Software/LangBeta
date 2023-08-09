@@ -1,8 +1,8 @@
 //Written by nwvbug- https://github.com/nwvbug 
 //GitHub Repo: https://github.com/lye-software/Lang
 
-
-
+var sessionid;
+var toSend;
 //saving & creator stuff
 function saveToCloud(lucy, dl){
     sessionid = localStorage.getItem("usertoken");
@@ -139,7 +139,10 @@ function saveToCloud(lucy, dl){
             if(okToUpload == true && !lucy){
                 var xhr = new XMLHttpRequest();
                 xhr.open("POST", url);
-            
+                if (sessionid != null){
+                    console.log("sessionidHeader")
+                    xhr.setRequestHeader("lye-session", sessionid)
+                }
                 xhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
             
                 xhr.onreadystatechange = function () {
@@ -153,7 +156,7 @@ function saveToCloud(lucy, dl){
                 console.log("sending " + data + " to " + url);
                 xhr.send(data);
             } else if (lucy){
-                return data;
+                return toUpload;
             }
             
         }
@@ -522,98 +525,119 @@ function getRandomQuestion(textBlock) {
 }
 
 
-function sendLucyMessage(){
-    var url = "https://backend.langstudy.tech/ai_studysheet/"+window.localStorage.getItem("usertoken");
-    var message = document.getElementById("lucyMessage").value;
-    document.getElementById("lucyLoader").style.display = "flex";
-    document.getElementById("lucyMessage").value = "";
+async function sendLucyMessage(){
+    var url = "https://backend.langstudy.tech/v2/langbot/chat";
+    var message = document.getElementById("LAquery").value;
+    var typingIndicators = document.getElementById("typingIndicators")
+    typingIndicators.classList.remove("hiddenTypingIndicators")
+    document.getElementById("LAquery").value = "";
     if (message == "" || message == " " || message == null){
         showPopup("You cannot send an empty message.")
         document.getElementById("lucyLoader").style.display = "none";
     } else{
         createUserBubble(message)
-        showElement(document.getElementById("assistantThinking"))
+        
         var data = saveToCloud(true);
+        console.log("data")
         var xhr = new XMLHttpRequest();
         xhr.open("POST", url);
-    
-        xhr.setRequestHeader("Content-Type", "text/plain;charset=UTF-8");
-    
+        
+        if (sessionid != null){
+            console.log("sessionidHeader")
+            xhr.setRequestHeader("lye-session", sessionid)
+        }
+        xhr.setRequestHeader('Content-Type', 'application/json')
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 console.log(xhr.status);
                 if (xhr.status == 500){
-                    console.error("Langbot internal server error")
+                    console.error("Langbot internal server error (500)")
                     createBubble("Sorry, we encountered an error. You can try again, or edit your query.")
-                    document.getElementById("lucyLoader").style.display = "none";
-                    hideElement(document.getElementById("assistantThinking"))
+                    var typingIndicators = document.getElementById("typingIndicators")
+                    typingIndicators.classList.add("hiddenTypingIndicators")
                     showPopup("Lang Assistant encountered an error. You can try again, or edit your query.")
                 }
-                else{
+                else if (xhr.status == 200){
                     addResponse(xhr.responseText);
+                } else{
+                    console.error("Langbot internal server error")
+                    createBubble("Sorry, we encountered an error. You can try again, or edit your query.")
+                    var typingIndicators = document.getElementById("typingIndicators")
+                    typingIndicators.classList.add("hiddenTypingIndicators")
+                    showPopup("Lang Assistant encountered an error. You can try again, or edit your query.")
                 }
                 console.log(xhr.responseText);
             }
         };
-        var data = data+"-seperator-"+message;
-        console.log("sending " + data + " to " + url);
-        xhr.send(data);
+        var data;
+        toSend = JSON.parse('{"studysheet": null, "user_req": null}')
+        // if (data == "" || data == null){
+        //     toSend.studysheet = "{}";
+        // }  else {
+        //    
+        // }
+        toSend.studysheet = data;
+        toSend.user_req = message;
+        xhr.setRequestHeader("Content-Length", JSON.stringify(toSend).length) 
+        console.log("sending " + JSON.stringify(toSend) + " to " + url);
+        console.log(xhr)
+        xhr.send(JSON.stringify(toSend));
+
+
+        
     }
 }
 
 function addResponse(studysheetReturned){
     setup = true;
     console.warn("THE RESPONSE IS: "+studysheetReturned)
-    var sendNormalResponse = true;
-    var responses = [
-        "Alright, here is what I got.",
-        "Here's your Studysheet.",
-        "Done! Do you have any other changes you would like to make?",
-        "Finished! What else can I do to help improve your Studysheet?",
-        "I'm done. Is there anything else you would like me to do?",
-        "Is there anything else I can do to help you with this Studysheet?",
-        "All done. Would you like me to make any other changes?",
-        "Would you like me to change any of the terms in your Studysheet?",
-        "Let me know if there's anything else I can do for you."
-    ]
-    document.getElementById("insideCreator").innerHTML = "";
-    hideElement(document.getElementById("assistantThinking"))
+    
 
-    response = responses[Math.floor(Math.random() * (responses.length))];
-    parsedSheet = studysheetReturned.split("\n");
+    parsed = JSON.parse(studysheetReturned);
+    console.log(parsed)
+    
+    parsedSheet = parseFromJSON(parsed.studysheet);
+    response = parsed.langbot_response;
     for (i = 0; i<parsedSheet.length; i++){
-        try{
-            wordPair = getRandomQuestion(studysheetReturned);
-        } catch(error){
-            sendNormalResponse = false;
+        var term = parsedSheet.getNthTerm(i)
+        if (term.isMulti){
+
+        } else {
+            createCreatorInput(term.term, term.answer)
         }
-        
-        createCreatorInput(wordPair[0], wordPair[1])
     }
     
     createBubble(response)
-    document.getElementById("lucyLoader").style.display = "none";
-    
+    var typingIndicators = document.getElementById("typingIndicators")
+    typingIndicators.classList.add("hiddenTypingIndicators")
 }
 
 function createBubble(msg){
     var genericBubble = `
-    <div class="bubbleContainer">
-        <div class="whiteBubble bubble">${msg}</div>
+    <div class="message botSentMessage">
+        <div>
+            ${msg}
+        </div>
     </div>
     `
-    document.getElementById("messageCont").innerHTML = genericBubble + document.getElementById("messageCont").innerHTML;
+    var newdiv = document.createElement("DIV")
+    newdiv.innerHTML = genericBubble;
+    document.getElementById("messageCont").insertBefore(newdiv, document.getElementById("typingIndicators"))
     
     
 }
 
 function createUserBubble(msg){
     var genericBubble = `
-    <div class="bubbleContainer">
-        <div class="blueBubble bubble">${msg}</div>
+    <div class="message userSentMessage">
+        <div>
+            ${msg}
+        </div>
     </div>
     `
-    document.getElementById("messageCont").innerHTML = genericBubble + document.getElementById("messageCont").innerHTML;
+    var newdiv = document.createElement("DIV")
+    newdiv.innerHTML = genericBubble;
+    document.getElementById("messageCont").insertBefore(newdiv, document.getElementById("typingIndicators"))
 }
 
 

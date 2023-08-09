@@ -578,7 +578,7 @@
 
         <div id="langBotContainer" class="whiteBackdrop fixedSidebar">
             <div class="verticalFlex" style="height: 100%;">
-                <div style="flex: 1;">
+                <div style="flex: 1;" id="messageCont">
                     <div class="message botSentMessage">
                         <div>
                             Hi. I'm Lang Assistant! <strong>Ask me to create a new Studysheet or make changes to an existing one</strong>. Click <a href='langAssistantFAQ.html' style="color:wheat;">here</a> to learn about me.
@@ -596,8 +596,8 @@
                     </div>
                 </div>
                 <div class="messageInput">
-                    <input class="lightGlow" placeholder="Ask Lang Assistant">
-                    <button class="newbutton" style="margin:0;"></button>
+                    <input class="lightGlow" placeholder="Ask Lang Assistant" id="LAquery">
+                    <button class="newbutton" style="margin:0;" onclick="sendLucyMessage()"></button>
                 </div>
             </div>
         </div>
