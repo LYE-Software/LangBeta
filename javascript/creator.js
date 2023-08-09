@@ -1,6 +1,7 @@
 //Written by nwvbug- https://github.com/nwvbug 
 //GitHub Repo: https://github.com/lye-software/Lang
 
+
 var sessionid;
 var toSend;
 //saving & creator stuff
@@ -530,6 +531,7 @@ async function sendLucyMessage(){
     var message = document.getElementById("LAquery").value;
     var typingIndicators = document.getElementById("typingIndicators")
     typingIndicators.classList.remove("hiddenTypingIndicators")
+    showElement(document.getElementById("assistantThinking"))
     document.getElementById("LAquery").value = "";
     if (message == "" || message == " " || message == null){
         showPopup("You cannot send an empty message.")
@@ -591,8 +593,8 @@ async function sendLucyMessage(){
 function addResponse(studysheetReturned){
     setup = true;
     console.warn("THE RESPONSE IS: "+studysheetReturned)
-    
-
+    hideElement(document.getElementById("assistantThinking"))
+    document.getElementById("insideCreator").innerHTML = ""
     parsed = JSON.parse(studysheetReturned);
     console.log(parsed)
     

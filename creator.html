@@ -915,7 +915,12 @@
         (e || window.event).returnValue = confirmationMessage; // Gecko + IE
         return confirmationMessage; // Webkit, Safari, Chrome etc.
     });
-
+    var wage = document.getElementById("LAquery");
+wage.addEventListener("keydown", function (e) {
+    if (e.code === "Enter") {  //checks whether the pressed key is "Enter"
+        sendLucyMessage()
+    }
+});
 </script>
 <script src="javascript/sidebar.js"></script>
 </html>
