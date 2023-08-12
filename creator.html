@@ -749,13 +749,13 @@
     }
 
     var rightSidebarContainer = document.getElementById("rightSidebarContainer")
+    var langbotTopOffset = langBotContainer.getBoundingClientRect().top
     document.addEventListener("scroll", function () {
-        console.log(document.body.getBoundingClientRect().width)
         if (document.body.getBoundingClientRect().width > 1000) {
             var scrollPos = window.scrollY;
-            var fixedPos = parseInt(rightSidebarContainer.style.top) - (rightSidebarContainer.getBoundingClientRect().height / 2)
-            var pos = scrollPos + fixedPos - (langBotContainer.getBoundingClientRect().height / 2)
-            langBotContainer.style.transform = "translateY(" + pos + "px)"
+            var fixedCenter = parseInt(rightSidebarContainer.style.top) + (rightSidebarContainer.getBoundingClientRect().height / 2)
+            var newPos = fixedCenter - langbotTopOffset + scrollPos - (langBotContainer.getBoundingClientRect().height / 2)
+            langBotContainer.style.transform = "translateY(" + newPos + "px)"
         } else {
             langBotContainer.style.transform = ""
         }
