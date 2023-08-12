@@ -1,7 +1,9 @@
 var header = document.getElementById("header");
-var functionRow = document.getElementsByClassName("functionRow")[0];
-
-var headerHeight = header.getBoundingClientRect().height + functionRow.getBoundingClientRect().height;
+var headerHeight = 0;
+if (header != null) {
+    var functionRow = document.getElementsByClassName("functionRow")[0];
+    var headerHeight = header.getBoundingClientRect().height + functionRow.getBoundingClientRect().height;
+}
 
 var rightSidebars = document.getElementsByClassName("rightSidebarContainer");
 var leftSidebars = document.getElementsByClassName("leftSidebarContainer");
