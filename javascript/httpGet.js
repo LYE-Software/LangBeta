@@ -29,7 +29,7 @@ async function httpGet(theUrl, lye, sessionid){
         }
     
         xmlHttp.onerror = (e) => {
-            console.error(xhr.statusText)
+            console.error(xmlHttp.statusText)
         }
     
         xmlHttp.send( null );
