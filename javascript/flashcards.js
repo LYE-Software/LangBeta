@@ -67,6 +67,11 @@ function nextCard(card){
     idx++;
     card.onclick = function(){flipCard(this)}
     document.getElementById("flashcardBox").children[idx-1].children[0].onclick = function(){previousCard(this)}
+    if (card.getAttribute("data-state") == "back"){
+        card.innerHTML = newSheet.getNthTerm(card.getAttribute("data-term")).term
+        card.setAttribute("data-state", "front")     
+
+    }
 }
 
 function previousCard(card){
@@ -78,4 +83,9 @@ function previousCard(card){
         document.getElementById("flashcardBox").children[idx].children[0].onclick = function(){previousCard(this)}
     }
     document.getElementById("flashcardBox").children[idx+1].children[0].onclick = function(){nextCard(this)}
+    if (card.getAttribute("data-state") == "back"){
+        card.innerHTML = newSheet.getNthTerm(card.getAttribute("data-term")).term
+        card.setAttribute("data-state", "front")     
+
+    }
 }

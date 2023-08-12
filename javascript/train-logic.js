@@ -314,7 +314,8 @@ function configureInterface(){
     } catch (error) {
         
     }
-    document.getElementById("shelf").style.display="";
+    update()
+    showElement(document.getElementById("shelf"));
     document.getElementById("topBar").style.display = "none";
 
 }

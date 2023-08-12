@@ -18,6 +18,7 @@ function starter() {
     sheet = parseFromJSON(rawJson)
     total = sheet.getFullLength();
     runMultipleChoice()
+    update()
 }
 
 var num = 0;
@@ -43,7 +44,8 @@ function runMultipleChoice() {
     document.getElementById("term_image").style.display = "none";
     theTerm = sheet.getNthTerm(num);
     if (theTerm.hasImage) {
-        document.getElementById("term_image").children[0].src = theTerm.imageSrc;
+        let urlForImage = "https://backend.langstudy.tech/"+window.localStorage.getItem("usertoken")+"/image/get/"+theTerm.imageSrc;
+        document.getElementById("term_image").children[0].src = urlForImage;
         document.getElementById("term_image").style.display = "";
     }
 

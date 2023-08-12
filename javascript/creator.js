@@ -190,7 +190,11 @@ function creatorModeSelect(){
             var term = tmpss.getNthTerm(i);
             
             if (term.isMulti){
-                createCreatorInput(term.question, i)
+                imageSrc = null;
+                if (term.hasImage){
+                    imageSrc = term.imageSrc
+                }
+                createCreatorInput(term.question, i, imageSrc)
                 document.getElementById("tdc"+i).children[1].children[2].click();
                 //document.getElementById("tdc"+i).children[1].children[1].innerHTML = term.question;
                 console.log("WHAT IS THE TERM QUESTION:: "+term.question)
@@ -210,9 +214,14 @@ function creatorModeSelect(){
 
             } else {
                 console.log("why is that a zero??? term.answer: "+term.answer)
-                makeInputs("single", i, term.term, term.answer)
+                imageSrc = null;
+                if (term.hasImage){
+                    imageSrc = term.imageSrc
+                }
+                makeInputs("single", i, term.term, term.answer, imageSrc)
             }
         }
+        
     } else {
         console.log("Entering Quizlet Creator Mode")
         customWords = window.localStorage.getItem("fullstudysheet")
@@ -230,7 +239,7 @@ function creatorModeSelect(){
 
 //creates new input fields for multi & single creators + assigns them ids
 var currentId = "";
-function makeInputs(version, idNum, question, answer){
+function makeInputs(version, idNum, question, answer, imageSrc){
     var inputMap = new Map();
     inputMap.set("")
     if (question == null && answer == null){
@@ -239,7 +248,7 @@ function makeInputs(version, idNum, question, answer){
     }
     if (version=="single"){
         console.log("answer going in: "+answer)
-        createCreatorInput(question, answer)
+        createCreatorInput(question, answer, imageSrc)
     }
     else{
         
@@ -303,9 +312,12 @@ var generateIdV = 0
 var generateIdA = 0
 var generateIdYou = 0
 
-function createCreatorInput(term, definition) {
+function createCreatorInput(term, definition, imageSrc) {
     var br = document.createElement("div")
+        
         br.dataset.image = "false";
+        
+            
         br.className = "overallContainer"
         br.id = "tdc"+generateIdA;
         br.setAttribute("data-multi", "false")
@@ -326,7 +338,13 @@ function createCreatorInput(term, definition) {
 
 
         var blankImage = document.createElement("img");
-        blankImage.className = "defaultImageHolder";
+        if (imageSrc!= null){
+            blankImage.src = "https://backend.langstudy.tech/"+window.localStorage.getItem("usertoken")+"/image/get/"+imageSrc;
+            blankImage.className = "showImageHolder";
+        } else {
+            blankImage.className = "defaultImageHolder";
+
+        }
         imageHolder.append(blankImage);
 
         var verbInput = document.createElement('div');

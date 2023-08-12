@@ -12,7 +12,7 @@ function doPracticeTest(){
     for (i=0; i<singleSheet.length; i++){
         console.log(singleSheet.terms[i].returnArray())
     }
-    for(i=0; i<=singleSheet.length; i++){
+    for(i=0; i<singleSheet.length; i++){
         
         makeTestInputs(i+1, singleSheet.terms[i].term, i, "response"+i, singleSheet.terms[i].answer);
     }

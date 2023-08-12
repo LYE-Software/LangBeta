@@ -15,7 +15,8 @@ function write(term_, reviewing){
     term = term_;
     
     if (term.hasImage){
-        document.getElementById("term_image").children[0].src = term.imageSrc;
+        let urlForImage = "https://backend.langstudy.tech/"+window.localStorage.getItem("usertoken")+"/image/get/"+term.imageSrc;
+        document.getElementById("term_image").children[0].src = urlForImage;
         document.getElementById("term_image").style.display = "";
     }
     document.getElementById("displayWord").innerHTML = term.term;
@@ -67,7 +68,11 @@ function multipleChoice(term_, arr){
     term = term_;
     console.log("[MULT] arr: "+arr)
     var fakes = getMultiFakes(term_, arr)
-
+    if (term.hasImage){
+        let urlForImage = "https://backend.langstudy.tech/"+window.localStorage.getItem("usertoken")+"/image/get/"+term.imageSrc;
+        document.getElementById("term_image_mcq").children[0].src = urlForImage;
+        document.getElementById("term_image_mcq").style.display = "";
+    }
     fakes.push(term_)
     console.log("[MULT] pre-random "+fakes)
     for (let z = fakes.length - 1; z > 0; z--) {
@@ -130,6 +135,11 @@ async function checkMulti(letter){
 
 function learn(term_){
     term = term_;
+    if (term.hasImage){
+        let urlForImage = "https://backend.langstudy.tech/"+window.localStorage.getItem("usertoken")+"/image/get/"+term.imageSrc;
+        document.getElementById("term_image_learn").children[0].src = urlForImage;
+        document.getElementById("term_image_learn").style.display = "";
+    }
     document.getElementById("TermAndDef").style.display = "";
     document.getElementById("term").innerHTML = term_.term;
     document.getElementById("def").innerHTML = term_.answer;
