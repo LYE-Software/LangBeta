@@ -22,7 +22,9 @@ async function getLibraryList(){
     window.localStorage.removeItem("savedShare")
     window.localStorage.removeItem("sharedID");
     window.localStorage.removeItem("sharedSheet");
-    customuser=window.localStorage.getItem("username");
+    window.localStorage.removeItem("ssID");
+    window.localStorage.removeItem("lastsheet");
+    
     window.localStorage.setItem("fullstudysheet", "");
     window.localStorage.setItem("chosenSheet", "")
     window.localStorage.setItem('editSheet', "false");
@@ -92,6 +94,12 @@ async function getLibraryList(){
         // console.log("bruh "+broken);
         
         library = json.studysheets
+        if (window.localStorage.getItem("customusername")!= "" && window.localStorage.getItem("customusername")!= null){
+            username=window.localStorage.getItem("customusername");
+        } else {
+            window.localStorage.setItem("customusername", json.username)
+            username = json.username
+        }
         console.warn("LIBRARY: "+library)
         if(library == "[]"){
             console.log("1")
@@ -107,7 +115,7 @@ async function getLibraryList(){
         else{
             
             
-            username = json.username
+            
             
             if (library==""){
                 console.log("4")
@@ -119,7 +127,7 @@ async function getLibraryList(){
             } 
             else{
                 document.getElementById("homeusername").innerHTML = "Hello, "+username;
-                window.localStorage.setItem("customusername", username);
+                
                 hideLoadingView();
                 window.localStorage.setItem("studysheetcount", library.length);
                 for (i=0;i<library.length;i++){

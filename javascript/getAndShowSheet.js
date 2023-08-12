@@ -6,12 +6,14 @@ async function doPreviewAndLocal(){
 
     var url_string = window.location.href; //window.location.href
     var url = new URL(url_string);
+
+    //SHARED LINK
     if(url.searchParams.get("userid")!= null){
         if (window.localStorage.getItem("savedShare")){
-            document.getElementById("saveBtn").innerHTML = "Saved!";
+            document.getElementById("saveBtnImg").src = "assets/icons/check.png";
             document.getElementById("saveBtn").onclick = function(){
-                showPopup("You already saved this Studysheet!")
-            };
+            showPopup("You already saved this Studysheet!")
+        };
         }
         //document.getElementById("saveBtnHolder").style.display = "";
         console.log("inside shareEvent")
@@ -19,25 +21,30 @@ async function doPreviewAndLocal(){
         chosensheet = url.searchParams.get("sheetName")
         window.localStorage.setItem("sharedID", sessionid);
         window.localStorage.setItem("sharedSheet", chosensheet);
+        window.localStorage.setItem("ssID", chosensheet)
         window.localStorage.setItem("lastsheet", chosensheet)
         console.log(chosensheet)
         sheet = await httpGet("https://backend.langstudy.tech/id/"+sessionid+"/Studysheets/"+chosensheet)
         document.getElementById("studysheetname").innerHTML = chosensheet.slice(0,15)+"..."
-        //document.getElementById("editbutton").style.borderColor = "#a0a0a0"
-        //document.getElementById("editbutton").style.backgroundColor = "#a0a0a0"
+        document.getElementById("editbutton").style.borderColor = "#a0a0a0"
+        document.getElementById("editbutton").style.backgroundColor = "#a0a0a0"
 
-        //document.getElementById("editbutton").onclick = function(){
-            //document.getElementById('notOwned').style.pointerEvents = "all";
-            //document.getElementById('notOwned').style.opacity = 1;
-        //}
+        document.getElementById("editbutton").onclick = function(){
+            document.getElementById('notOwned').style.pointerEvents = "all";
+            document.getElementById('notOwned').style.opacity = 1;
+        }
+        document.getElementById("shareDisclaimer").style.display = "flex"
+        document.getElementById("shareBtn").style.display = ""
     
     } 
+    //SHARED BACK
     else if(window.localStorage.getItem("sharedID") != "" &&  window.localStorage.getItem("sharedID") != null){
         if (window.localStorage.getItem("savedShare")){
-            document.getElementById("saveBtn").innerHTML = "Saved!";
+            
+            document.getElementById("saveBtnImg").src = "assets/icons/check.png";
             document.getElementById("saveBtn").onclick = function(){
-                showPopup("You already saved this Studysheet!")
-            };
+            showPopup("You already saved this Studysheet!")
+        };	
         }
         console.log("Shared back")
         document.getElementById("saveBtnHolder").style.display = "";
@@ -57,7 +64,10 @@ async function doPreviewAndLocal(){
             document.getElementById('notOwned').style.pointerEvents = "all";
             document.getElementById('notOwned').style.opacity = 1;
         }
+        document.getElementById("shareDisclaimer").style.display = "flex"
+        document.getElementById("shareBtn").style.display = ""
     }
+    //NORMAL
     else{
         chosensheet = window.localStorage.getItem("chosenSheet")
         window.localStorage.setItem("lastsheet", chosensheet)
@@ -68,7 +78,12 @@ async function doPreviewAndLocal(){
         }
 
         toek = window.localStorage.getItem("usertoken")
-        document.getElementById("studysheetname").innerHTML = chosensheet.slice(0,15)+"..."
+        if (chosensheet.length>15){
+            document.getElementById("studysheetname").innerHTML = chosensheet.slice(0,15)+"..."
+
+        } else {
+            document.getElementById("studysheetname").innerHTML = chosensheet
+        }
         sheet = await httpGet("https://backend.langstudy.tech/"+toek+"/Studysheets/"+chosensheet+"/RequestPreview")
         // console.warn("inside the second go")
     }
@@ -84,6 +99,16 @@ async function doPreviewAndLocal(){
     
     console.log("og sheet: "+sheet)
     var newSheet = parseFromJSON(sheet);
+    if (newSheet.type == "pointer"){
+        console.log("redirecting pointers")
+        sheet = await httpGet("https://backend.langstudy.tech/id/"+newSheet.user_id+"/Studysheets/"+chosensheet)
+        if (sheet == "" || sheet == null || sheet == "invalidsession"){
+            console.log("could not find")
+            document.getElementById("unableToFind").style.opacity = "1";
+            document.getElementById("unableToFind").style.pointerEvents = "all"; 
+        }
+        newSheet = parseFromJSON(sheet)
+    }
     console.log(newSheet)
     if (newSheet.length<4){
         console.log("removing...")
@@ -176,7 +201,7 @@ async function shareLink(){
         sheetName = window.localStorage.getItem("chosenSheet").replaceAll(" ", "%20");
         sheetName = sheetName.replaceAll("&", "%26")
         console.log("Replaced forbidden characters")
-        url = "https://langstudy.tech/studysheetpage.html?userid="+tempTok+"&sheetName="+sheetName;
+        url = "https://langstudy.tech/studysheetpage-new.html?userid="+tempTok+"&sheetName="+sheetName;
         document.getElementById("linkholder").innerHTML = url;
         console.log(url)
     }
@@ -184,6 +209,47 @@ async function shareLink(){
 }
 
 
-function showFlashcards(){
-    showElement()
+
+
+function saveToLib(){
+    if (window.localStorage.getItem("savedShare")){
+        showPopup("You already saved this Studysheet!")
+        return;
+    } 
+    else if (window.localStorage.getItem("usertoken") == null || window.localStorage.getItem("usertoken") == null){
+        showPopup("You need to be logged in to save Studysheets!")
+        return;
+    }
+    else{
+        window.localStorage.setItem("savedShare", "true")
+        document.getElementById("saveBtnImg").src = "assets/icons/check.png";
+        document.getElementById("saveBtn").onclick = function(){
+            showPopup("You already saved this Studysheet!")
+        };	
+    
+        filename = window.localStorage.getItem("sharedSheet");
+        var url = "https://backend.langstudy.tech/"+window.localStorage.getItem("usertoken")+"/Studysheets/upload/"+filename;
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", url);
+    
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.setRequestHeader("lye-session", window.localStorage.getItem("usertoken"))
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4) {
+                console.log(xhr.status);
+                console.log(xhr.responseText);
+                document.getElementById("saveBtnImg").src = "assets/icons/check.png";
+                document.getElementById("saveBtn").onclick = function(){
+                showPopup("You already saved this Studysheet!")
+                };            
+            }
+        };
+        var data = {
+            "type": "pointer",
+            "studysheet_id": window.localStorage.getItem("ssID"),
+            "user_id": window.localStorage.getItem("sharedID")
+          };
+        console.log("sending " + data + " to " + url);
+        xhr.send(JSON.stringify(data));
+    }
 }

@@ -232,8 +232,8 @@
 
         .flashcards {
             position: relative;
-
-            display: flex !important;
+            transition:1s;
+            display: flex;
             flex-direction: column;
 
             height: 65vh;
@@ -269,13 +269,12 @@
             width: 100%;
             height: 100%;
             background-color: wheat;
-
-            animation: cardFlip 1s ease-in-out;
+            transition: 1s;
             border-radius: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-
+            cursor:pointer;
             font-size: 30px;
         }
 
@@ -290,6 +289,10 @@
                 height: 100%;
             }
 
+        }
+
+        .cardFlip{
+            animation: cardFlip 1s ease-in-out;
         }
 
         @media (max-width: 700px) {
@@ -415,15 +418,21 @@
         </div>
     </div>
 
-    <div class="rightSidebarContainer">
+    <div class="rightSidebarContainer" style="z-index:4000">
         <div class="whiteBackdrop">
-            <button class="lightGlow newbutton" onclick="initializeEdit()"><img src="assets/icons/edit.png"></button>
+            <button class="lightGlow newbutton shareThing" id="saveBtn" onclick="saveToLib()" style="background-color:wheat; display:none;""><img src="assets/icons/langsave.svg" id="saveBtnImg"></button>
+            <button class="lightGlow newbutton" onclick="initializeEdit()" id="editbutton"><img src="assets/icons/edit.png" ></button>
             <button class="lightGlow newbutton" onclick="shareLink()"><img src="assets/icons/share.png"></button>
-            <button class="lightGlow newbutton"><img src="assets/icons/flashcards.png" style="" onclick="doFlashcards()"></button>
+            <button class="lightGlow newbutton"><img src="assets/icons/flashcards.png" style="" id="flashcard" onclick="doFlashcards()"></button>
             <button class="lightGlow newbutton" onclick="window.location.href='settings.html'"><img src="assets/icons/settings.png"></button>
+
         </div>
     </div>
-
+    <div class = "shareThing" id="shareDisclaimer" style="position:fixed; bottom:0; text-align: center; color:black;margin-bottom:20px; width:100%; align-items: center; display:none; justify-content: right; z-index:4000;">
+        <div style="background-color: rgba(255, 255, 255, 0.75); border-radius: 20px; width:fit-content; padding:10px; margin-right:10px;">
+            This is a shared Studysheet.
+        </div>
+    </div>
     <div class="mainContainer">
         <div class="termList" id="listview">
             <div class="termDefTitle"><div>Term</div><div>Definition</div></div>
@@ -432,29 +441,9 @@
                
             </div>
         </div>
-        <div class="flashcards" style="" >
-            <div class="flashcardsFade"></div>  
+        <div class="flashcards innerFade" style="display:none; opacity:0; pointer-events:none;" id="outerFlashcards">
             <div class="flashcardContainer" id="flashcardBox">
-                <div class="flashcard">
-                    <div class="flashcardContents">
-                        test
-                    </div>
-                </div>
-                <div class="flashcard">
-                    <div class="flashcardContents">
-                        sus
-                    </div>
-                </div>
-                <div class="flashcard">
-                    <div class="flashcardContents">
-                        sussu
-                    </div>
-                </div>
-                <div class="flashcard">
-                    <div class="flashcardContents">
-                        susafdfa
-                    </div>
-                </div>
+                
             </div>
         </div>
     </div>
@@ -465,7 +454,16 @@
             <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%;" onclick="hideElement(document.getElementById('tooFewTerms'))">OK</div>
         </div>
     </div>
-
+    <div id="popup" class="popupContainer" style="z-index:2000;">
+        <div class="popup centerFlex verticalFlex">
+            <div style="margin: 50px;">
+                <img style="height:10vh;" src="assets/icons/langerror.png" alt="error">
+            </div>
+            <div style="margin-bottom: 30px;" id="popupText">Uh oh! This prompt does not seem to be working properly. Please dismiss it and if you see it again, contact the developers.</div>
+            
+            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%;" onclick="hideElement(document.getElementById('popup'))">Ok</div>
+        </div>
+    </div>
     <div id="notOwned" class="absolute horizontalFlex centerFlex fullAbsolute" style="transition: all 0.15s ease-in-out; z-index:500; opacity: 0; pointer-events: none; background-color: rgba(0, 0, 0, 0.5);">
         <div class="verticalFlex centerFlex lightGlow centerText" style="z-index:500; border-radius: 15px; padding: 20px; width: 30vw; background-color: wheat;">
             <div style="margin-top: 10px; color:red; font-size:20px;"><strong>This Studysheet has been shared.</strong></div>
