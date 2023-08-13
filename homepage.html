@@ -259,6 +259,14 @@
 
             pointer-events: all;
         }
+
+        .loadWhiteBackground{
+            background-color: rgba(255, 255, 255, 0.5);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+
+            pointer-events: all;
+        }
         
     </style>
 </head>
@@ -326,7 +334,7 @@
                 <div style="color: var(--primary-light); margin: 0; margin-right: 0;" class="centerText headerText">Home</div>
             </div>
             <div id="contentContainer" style="position: relative; display: flex; flex-wrap: wrap; justify-content: center; align-items: center;">
-                <div id="loadingscreen" class="verticalFlex" style="transition: all 0.25s ease-in-out; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--primary-dark); z-index: 250; border: 1px solid var(--primary-light)">
+                <div id="loadingscreen" class="verticalFlex loadWhiteBackground" style="transition: all 0.25s ease-in-out; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 250; border: 1px solid var(--primary-light); border-radius:20px;">
                     <div>
                         <img class="animatedLoader" src="assets/logos/lang-wheat.png" alt="Loading">
                     </div>
@@ -345,22 +353,22 @@
                 <div class="studysheetInfoContainer noverticalshow" style="border-radius:0px 20px 20px 0px">
                     <div class="flexSpacer"></div>
                     <div class="verticalFlex">
-                        <div id="termCount" style="color:black;">!</div>
+                        <div id="termCount" style="color:black;"></div>
                         <div style="margin-bottom: 10px; color:black;">Total Term and Definition Pairs</div>
                     </div>
                     <div class="flexSpacer"></div>
                     <div style="width: 100%;">
                         <div class="studysheetInfoPanel" style="color:black;">
                             <div>Last Modified: </div>
-                            <div id="lastModified">Oops, we encountered a problem</div>
+                            <div id="lastModified">~</div>
                         </div>
                         <div class="studysheetInfoPanel" style="border-top: none; color:black;">
                             <div>Created: </div>
-                            <div id="created">Oops, we encountered a problem</div>
+                            <div id="created">~</div>
                         </div>
                         <div class="studysheetInfoPanel" style="border-top: none; color:black;">
                             <div>Created By: </div>
-                            <div id="createdBy">Oops, we encountered a problem</div>
+                            <div id="createdBy">~</div>
                         </div>
                     </div>
                     <div class="flexSpacer"></div>
@@ -391,7 +399,7 @@
             <div style="font-size: 10px;">By signing up for an account, you agree to the Lang Terms of Service, which can be found <a href='langlegal.html' style="color: var(--primary-dark)">here</a></div>
         </div>
     </div>
-
+<!-- 
     <div id="betaBlocker" class="popupContainer" style="display:flex; opacity:100; pointer-events: all;">
         <div class="verticalFlex centerFlex lightGlow centerText popup">
             <img src="assets/logos/FullLangLogo.png" style="height:10vh; margin: 10px;" alt='Lang Logo'> 
@@ -402,7 +410,7 @@
             <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%;" onclick="window.location.href='https://langstudy.tech'">Go to Stable</div>
             <div style="font-size: 10px;">While all account activity should sync between Lang versions, Lye Software is not accountable for any loss of data as a result of using Lang Beta.</div>
         </div>
-    </div>
+    </div> -->
 
 
 
