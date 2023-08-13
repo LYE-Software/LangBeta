@@ -146,7 +146,7 @@ async function getLibraryList(){
                     div1 = document.createElement("div");
                     div1.style.display = "flex";
                     div1.style.alignItems = "center";
-                    div1.style.backgroundColor = "var(--primary-dark)";
+                    // div1.style.backgroundColor = "var(--primary-dark)";
                     div1.id = i;
                     div1.onclick = function(){
                         for (i=0;i<library.length;i++){
@@ -167,7 +167,7 @@ async function getLibraryList(){
                     }
                     div2 = document.createElement("div");
                     div2.className = "studysheetName";
-                    div2.style.color = "var(--primary-light)"
+                    div2.style.color = "white"
                     div2.innerHTML = library[i].name;
                     div1.append(div2);
 
@@ -177,8 +177,8 @@ async function getLibraryList(){
                     div3.style.justifyContent = "center";
                     div3.style.display = "flex";
                     div3.style.alignItems = "center";
-                    div3.style.backgroundColor = "var(--primary-dark)";
-                    div3.innerHTML=`<svg style="fill: var(--primary-light)" class="studysheetEdit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488.728 488.728" xmlns:v="https://vecta.io/nano"><path d="M487.147 462.52l-36.4-167.6c0-4.2-2.1-7.3-5.2-10.4l-261.3-261.3c-20-22.9-74.3-38.1-112.4 0l-47.9 47.9c-31 31-31 81.4 0 112.4l261.3 261.3c2.1 2.1 5.2 4.2 9.4 5.2l168.6 38.5c10.1 1.5 29.1-4.9 23.9-26zm-434.1-308.1c-15.6-15.6-15.6-39.6 0-55.2l47.9-47.9c15.2-15.2 40-15.2 55.2 0l238.4 238.4h-27.1c-11.4 0-20.8 9.4-20.8 20.8v34.3h-34.3c-11.4 0-20.8 9.4-20.8 20.8v26.1l-238.5-237.3zm280 261.3v-29.2h34.3c18 1.7 20.8-16.5 20.8-20.8v-34.4h29.2l24 109.3-108.3-24.9z"/></svg>`
+                    // div3.style.backgroundColor = "var(--primary-dark)";
+                    div3.innerHTML=`<svg style="fill: white" class="studysheetEdit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488.728 488.728" xmlns:v="https://vecta.io/nano"><path d="M487.147 462.52l-36.4-167.6c0-4.2-2.1-7.3-5.2-10.4l-261.3-261.3c-20-22.9-74.3-38.1-112.4 0l-47.9 47.9c-31 31-31 81.4 0 112.4l261.3 261.3c2.1 2.1 5.2 4.2 9.4 5.2l168.6 38.5c10.1 1.5 29.1-4.9 23.9-26zm-434.1-308.1c-15.6-15.6-15.6-39.6 0-55.2l47.9-47.9c15.2-15.2 40-15.2 55.2 0l238.4 238.4h-27.1c-11.4 0-20.8 9.4-20.8 20.8v34.3h-34.3c-11.4 0-20.8 9.4-20.8 20.8v26.1l-238.5-237.3zm280 261.3v-29.2h34.3c18 1.7 20.8-16.5 20.8-20.8v-34.4h29.2l24 109.3-108.3-24.9z"/></svg>`
                     div3.style.stroke = "var(--primary-light)";
                     div3.setAttribute("studysheet", library[i].name);
                     div3.id = "studysheet"+i;
@@ -193,7 +193,7 @@ async function getLibraryList(){
                     div5.style.display = "flex";
                     div5.style.alignItems = "center";
                     div5.style.justifyContent = "center";
-                    div5.style.backgroundColor = "var(--primary-dark)";
+                    // div5.style.backgroundColor = "var(--primary-dark)";
                     div5.setAttribute("studysheet", library[i].name);
                     div5.id = "studysheetDel"+i;
                     div5.onclick = async function(){

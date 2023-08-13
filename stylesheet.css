@@ -394,9 +394,9 @@ input {
     height: 6vh;
     width: 100vw;
 
-    -webkit-box-shadow:0px 0px 50px 0px var(--primary-light);
-    -moz-box-shadow: 0px 0px 50px 0px var(--primary-light);
-    box-shadow: 0px 0px 50px 0px var(--primary-light);
+    -webkit-box-shadow:0px 0px 20px 0px var(--primary-light);
+    -moz-box-shadow: 0px 0px 20px 0px var(--primary-light);
+    box-shadow: 0px 0px 20px 0px var(--primary-light);
 
 }
 
