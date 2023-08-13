@@ -201,7 +201,7 @@ async function shareLink(){
         sheetName = window.localStorage.getItem("chosenSheet").replaceAll(" ", "%20");
         sheetName = sheetName.replaceAll("&", "%26")
         console.log("Replaced forbidden characters")
-        url = "https://langstudy.tech/studysheetpage-new.html?userid="+tempTok+"&sheetName="+sheetName;
+        url = "https://langstudy.tech/studysheetpage.html?userid="+tempTok+"&sheetName="+sheetName;
         document.getElementById("linkholder").innerHTML = url;
         console.log(url)
     }
