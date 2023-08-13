@@ -44,7 +44,10 @@ async function getLibraryList(){
         console.log("new user")
         firstSignIn()
         // failedSignIn()
-    } else {
+    } else if (window.localStorage.getItem("usertoken") == "signedout"){
+        failedSignIn()
+    } 
+    else {
         console.log("inside the else")
         sessionid = window.localStorage.getItem("usertoken")
         console.log(sessionid);
@@ -94,7 +97,7 @@ async function getLibraryList(){
         // console.log("bruh "+broken);
         
         library = json.studysheets
-        if (window.localStorage.getItem("customusername")!= "" && window.localStorage.getItem("customusername")!= null){
+        if (window.localStorage.getItem("customusername")!= "" && window.localStorage.getItem("customusername")!= null && window.localStorage.getItem("customusername")!= "undefined" && window.localStorage.getItem("customusername")!= "signedout"){
             username=window.localStorage.getItem("customusername");
         } else {
             window.localStorage.setItem("customusername", json.username)
