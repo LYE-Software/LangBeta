@@ -4,12 +4,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Practice Test</title>
-    <link rel="stylesheet" href="stylesheet.css">
-    <link rel="icon" href="circular lang icon.png">
+    <link rel="stylesheet" href="../css/stylesheet.css">
+    <link rel="icon" href="../circular lang icon.png">
     <style id="sussyJavaScript"></style>
-    <script src="javascript/practest.js"></script>
-    <script src="javascript/Studysheet.js"></script>
-    <script src="javascript/utils.js"></script>
+    <script src="../javascript/practest.js"></script>
+    <script src="../javascript/Studysheet.js"></script>
+    <script src="../javascript/utils.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Poppins&family=Rubik+Mono+One&display=swap');
         .rubik{
@@ -68,14 +68,14 @@
     <div id="header0" style="width: 100vw">
         <div class="horizontalFlex header">
             <div class="flexSpacer">
-                <img style="height: 8vh; margin-left:10px;" src="assets/logos/lang-wheat.png" onclick="window.location.href='homepage.html'">
+                <img style="height: 8vh; margin-left:10px;" src="../assets/logos/lang-wheat.png" onclick="window.location.href='../homepage.html'">
             </div>
 
             <div class="flexSpacer rubik" style="color: var(--primary-dark); text-align: center;">Practice Test</div>
 
             <div class="horizontalFlex flexSpacer" style="justify-content: flex-end;">
                 <div>
-                    <img class="pfp" style="height: 5vh;" src="assets/icons/newsettings.svg" onclick="window.location.href='settings.html'">
+                    <img class="pfp" style="height: 5vh;" src="../assets/icons/newsettings.svg" onclick="window.location.href='../settings.html'">
                 </div>
             </div>
         </div>
@@ -120,21 +120,13 @@
         </div>
     </div>
     <div class="samelineheader" style="bottom:0;">
-        <a href="studysheetpage-new.html" style="left:0; bottom:0;">
-            <img src="assets/icons/back.svg" style="left:0; bottom:0; position: fixed;">
+        <a href="../studysheetpage-new.html" style="left:0; bottom:0;">
+            <img src="../assets/icons/back.svg" style="left:0; bottom:0; position: fixed;">
         </a>
     </div>
 </body>
 
 <script>
-    window.onscroll = function() {
-        var scroll = window.scrollY;
-        // get sussyJavaScript style element
-        var sussyJavaScript = document.getElementById("sussyJavaScript");
-        // set the innerHTML to be #welcome::after { }
-        sussyJavaScript.innerHTML = "body { background-position: 0 " + scroll + "px; }";
-    };
-
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Tab') {
             var focused = document.activeElement;

@@ -188,7 +188,7 @@ async function getLibraryList(){
                     div3.onclick = function(){
                         var studysheetname = document.getElementById(this.id).getAttribute("studysheet")       
                         window.localStorage.setItem("chosenSheet", studysheetname)
-                        window.location.href="studysheetpage-new.html";
+                        window.location.href="studysheetpage.html";
                     }
 
 
@@ -265,7 +265,7 @@ function goToSSPage(){
     console.log("index is: "+index)
     console.log("newarr[index] is: "+library[index])
     window.localStorage.setItem("chosenSheet", library[index].name)
-    window.location.href="studysheetpage-new.html";
+    window.location.href="studysheetpage.html";
 }
 
 

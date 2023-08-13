@@ -4,13 +4,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mastery | Lang</title>
-    <link rel="icon" href="circular lang icon.png">
+    <link rel="icon" href="../assets/logos/circular lang icon.png">
 
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="../css/stylesheet.css">
 
-    <script src="javascript/mastery.js"></script>
-    <script src="javascript/Studysheet.js"></script>
-    <script src="javascript/utils.js"></script>
+    <script src="../javascript/mastery.js"></script>
+    <script src="../javascript/Studysheet.js"></script>
+    <script src="../javascript/utils.js"></script>
 
 </head>
 
@@ -182,21 +182,21 @@
     <div class="horizontalFlex" style="height:90vh;">
         <div class="rightSidebarContainer verticalFlex" style="z-index:1100;" id="shelf">
             
-            <img src="assets/logos/lang-wheat.png" style="height:10vh; position:fixed; top:3.5vh; cursor:pointer;" onclick="window.location.href='homepage.html'">
+            <img src="../assets/logos/lang-wheat.png" style="height:10vh; position:fixed; top:3.5vh; cursor:pointer;" onclick="window.location.href='../homepage.html'">
 
             <div class="whiteBackdrop">
-                <button class="lightGlow newbutton" onclick="window.location.href='studysheetpage-new.html'" ><img src="assets/icons/blackBackButton.png"></button>
-                <button class="lightGlow newbutton" onclick="showElement(document.getElementById('shuffling'))" ><img src="assets/icons/shuffle.png"></button>
-                <button class="lightGlow newbutton" onclick="showElement(document.getElementById('timerPopup'))"><img src="assets/icons/timer.png"></button>
-                <button class="lightGlow newbutton" style="cursor:pointer;" onclick="stats()" ><img src="assets/icons/stats.png"></button>
-                <button class="lightGlow newbutton" onclick="showElement(document.getElementById('restarting'))"><img src="assets/icons/reset.png"></button>
+                <button class="lightGlow newbutton" onclick="window.location.href='../studysheetpage.html'" ><img src="../assets/icons/blackBackButton.png"></button>
+                <button class="lightGlow newbutton" onclick="showElement(document.getElementById('shuffling'))" ><img src="../assets/icons/shuffle.png"></button>
+                <button class="lightGlow newbutton" onclick="showElement(document.getElementById('timerPopup'))"><img src="../assets/icons/timer.png"></button>
+                <button class="lightGlow newbutton" style="cursor:pointer;" onclick="stats()" ><img src="../assets/icons/stats.png"></button>
+                <button class="lightGlow newbutton" onclick="showElement(document.getElementById('restarting'))"><img src="../assets/icons/reset.png"></button>
 
             </div>
         </div>
         <div class="verticalFlex centerFlex" style="width:100vw;position:fixed;">
             <div style="max-width:800px; flex:1; width:100%;" id="container">
                 <div id="term_image" class="horizontalFlex centerFlex" style="margin-bottom:20px;">
-                    <img src="output.png" alt="Image Preview" style="width: auto; height: 250px; border-radius: 25px;">
+                    <img src="../output.png" alt="Image Preview" style="width: auto; height: 250px; border-radius: 25px;">
                 </div>
                 <div class=" horizontalFlex centerFlex" style="color: #ffffff; font-size: 35px; font-weight:bolder; margin-bottom: 20px; text-align: center; " id="multiQ">
                     Multi Overall Question
@@ -237,14 +237,14 @@
             </div>
             <div style="margin-top: 10px; text-align: center;">You can continue studying in Endless Mode or you can go back to the Study options.</div>
             <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%; margin-bottom: 0; " onclick="hideElement(document.getElementById('completedMode'))" id="cont">Continue</div>
-            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%;" onclick="window.location.href='studysheetpage-new.html'">Exit</div>
+            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%;" onclick="window.location.href='../studysheetpage.html'">Exit</div>
         </div>
     </div>
 
     <div id="timerPopup" class="absolute horizontalFlex centerFlex fullAbsolute" style="position: absolute; transition: all 0.15s ease-in-out; opacity: 0; pointer-events:none; z-index:1500; background-color: rgba(0, 0, 0, 0.5);">
         <div class="verticalFlex centerFlex lightGlow centerText" style="z-index:500; border-radius: 15px; padding: 20px; width: 30vw; background-color: wheat; text-align: center;">
             
-            <img src="assets/icons/timer.png" style="height:40px;">           
+            <img src="../assets/icons/timer.png" style="height:40px;">           
             <div style="margin-top: 10px; color:#001945; font-size:20px;"><strong>Timer Settings</strong></div>
             
             
@@ -281,7 +281,7 @@
     <div id="stats" class="absolute horizontalFlex centerFlex fullAbsolute" style="position: absolute; transition: all 0.15s ease-in-out; opacity: 0; pointer-events:none; z-index:1500; background-color: rgba(0, 0, 0, 0.5);">
         <div class="verticalFlex centerFlex lightGlow centerText" style="z-index:500; border-radius: 15px; padding: 20px; width: 30vw; background-color: wheat; text-align: center;">
             
-            <img src="assets/icons/stats.png" style="height:40px;">           
+            <img src="../assets/icons/stats.png" style="height:40px;">           
             <div style="margin-top: 10px; color:#001945; font-size:20px;"><strong>Statistics</strong></div>
             <div id="statsHolder">
                 

@@ -4,13 +4,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lang</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="sidebar.css">
-    <link rel="stylesheet" href="stylesheet.css">
-    <script src="javascript/train-logic.js"></script>
-    <script src="javascript/train-modes.js"></script>
-    <script src="javascript/Studysheet.js"></script>
-    <script src="javascript/utils.js"></script>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/sidebar.css">
+    <link rel="stylesheet" href="../css/stylesheet.css">
+    <script src="../javascript/train-logic.js"></script>
+    <script src="../javascript/train-modes.js"></script>
+    <script src="../javascript/Studysheet.js"></script>
+    <script src="../javascript/utils.js"></script>
     <link rel="icon" href="circular lang icon.png">
 </head>
 <style>
@@ -176,21 +176,21 @@ color: var(--primary-light);
         <div class="verticalFlex centerFlex lightGlow centerText" style="z-index:500; border-radius: 15px; padding: 20px; width: 30vw; background-color: wheat;">
             <div style="margin-top: 10px; color:#001945; font-size:20px;"><strong>Congratulations! You have completed Train for this Studysheet.</strong></div>
             <div style="margin-top: 10px;">You can return to the Homepage or you can go back to the Study options.</div>
-            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%; margin-bottom: 0; " onclick="window.location.href='homepage.html'">Home</div>
-            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%;" onclick="window.location.href='studysheetpage-new.html'">Study Options</div>
+            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%; margin-bottom: 0; " onclick="window.location.href='../homepage.html'">Home</div>
+            <div class="button buttonHoverDark horizontalFlex centerFlex" style="width: 25%;" onclick="window.location.href='../studysheetpage.html'">Study Options</div>
         </div>
     </div>
 
     <div class="rightSidebarContainer verticalFlex" style="z-index:1100; opacity:0; pointer-events: none;" id="shelf">
             
-        <img src="assets/logos/lang-wheat.png" style="height:10vh; position:fixed; top:3.5vh; cursor:pointer;" onclick="window.location.href='homepage.html'">
+        <img src="../assets/logos/lang-wheat.png" style="height:10vh; position:fixed; top:3.5vh; cursor:pointer;" onclick="window.location.href='../homepage.html'">
 
         <div class="whiteBackdrop">
-            <button class="lightGlow newbutton" onclick="window.location.href='studysheetpage-new.html'" ><img src="assets/icons/blackBackButton.png"></button>
-            <button class="lightGlow newbutton" style="cursor:pointer;" onclick="stats()" ><img src="assets/icons/stats.png"></button>
+            <button class="lightGlow newbutton" onclick="window.location.href='../studysheetpage.html'" ><img src="../assets/icons/blackBackButton.png"></button>
+            <button class="lightGlow newbutton" style="cursor:pointer;" onclick="stats()" ><img src="../assets/icons/stats.png"></button>
             
-            <button class="lightGlow newbutton" onclick="showElement(document.getElementById('restarting'))"><img src="assets/icons/reset.png"></button>
-            <button class="lightGlow newbutton" onclick="showElement(document.getElementById('explainer'))"><img src="assets/icons/help.png"></button>
+            <button class="lightGlow newbutton" onclick="showElement(document.getElementById('restarting'))"><img src="../assets/icons/reset.png"></button>
+            <button class="lightGlow newbutton" onclick="showElement(document.getElementById('explainer'))"><img src="../assets/icons/help.png"></button>
         </div>
     </div>
     <!-- <div class="horizontalFlex centerFlex" style="justify-content: space-between">
@@ -205,12 +205,12 @@ color: var(--primary-light);
     </div> -->
 
     <div id="topBar">
-        <a href="studysheetpage-new.html"><img src="assets/icons/back.svg" style="left:0; top:0; position: absolute; width: 150px; height: auto; z-index: 100"></a>
+        <a href="../studysheetpage.html"><img src="../assets/icons/back.svg" style="left:0; top:0; position: absolute; width: 150px; height: auto; z-index: 100"></a>
         <div class="centerText">
             <h1 id="whatGroup" style="font-family:Poppins; color:wheat; "></h1>
             <h1 id="whatPercent" style="font-family:Poppins; color:wheat;"></h1>
         </div>
-        <a href="studysheetpage-new.html"><img src="assets/logos/lang-wheat.png"  style="position:absolute; width:100px; right:0; top:0; margin:20px; z-index: 100" onclick="window.location.href='homepage.html'"></a>
+        <a href="../studysheetpage.html"><img src="../assets/logos/lang-wheat.png"  style="position:absolute; width:100px; right:0; top:0; margin:20px; z-index: 100" onclick="window.location.href='../homepage.html'"></a>
     </div>
 
     <div class="horizontalFlex" style="flex-direction: column; font-family:Poppins; justify-content: center; text-align: center; color:wheat;" id="informationAbt">
@@ -255,7 +255,7 @@ color: var(--primary-light);
         <div class="" style="text-align:left; border-radius: 20px; width: 50vw; margin: auto; margin-bottom:0px; height:50vh;">
             <div style="height:100%; display:flex; flex-direction: column; justify-content: center;">
                 <div id="term_image_learn" class="horizontalFlex centerFlex" style="display:none;">
-                    <img src="output.png" alt="Image Preview" style="margin-top: 10px; width: auto; height: 250px; border-radius: 25px;">
+                    <img src="../output.png" alt="Image Preview" style="margin-top: 10px; width: auto; height: 250px; border-radius: 25px;">
                 </div>
                 <div>
                     <h1 style="font-size: auto; margin: 20px; margin-bottom: 0px; height:fit-content; color:wheat; font-weight: bold;" id="term">
@@ -278,7 +278,7 @@ color: var(--primary-light);
     <div id="stats" class="absolute horizontalFlex centerFlex fullAbsolute" style="position: absolute; transition: all 0.15s ease-in-out; opacity: 0; pointer-events:none; z-index:1500; background-color: rgba(0, 0, 0, 0.5);">
         <div class="verticalFlex centerFlex lightGlow centerText" style="z-index:500; border-radius: 15px; padding: 20px; width: 30vw; background-color: wheat; text-align: center;">
             
-            <img src="assets/icons/stats.png" style="height:40px;">           
+            <img src="../assets/icons/stats.png" style="height:40px;">           
             <div style="margin-top: 10px; color:#001945; font-size:20px;"><strong>Statistics</strong></div>
             <div id="statsHolder">
                 
@@ -306,7 +306,7 @@ color: var(--primary-light);
 
         <div class="horizontalFlex centerFlex" style="flex-direction: column; ">
             <div id="term_image_mcq" class="horizontalFlex centerFlex" style="display:none;">
-                <img src="output.png" alt="Image Preview" style="width: auto; height: 250px; border-radius: 25px;">
+                <img src="../output.png" alt="Image Preview" style="width: auto; height: 250px; border-radius: 25px;">
             </div>
 
             <h1 id="questionheader" class="centerText" style="color: var(--primary-light);">Multiple Choice</h1>
@@ -335,7 +335,7 @@ color: var(--primary-light);
                 </div>
             </div>
             <div id="term_image" class= "horizontalFlex centerFlex" style="margin-bottom: 10px; display:none;">
-                <img src="output.png" alt="Image Preview" style="width: auto; height: 250px; border-radius: 25px;">
+                <img src="../output.png" alt="Image Preview" style="width: auto; height: 250px; border-radius: 25px;">
             </div>
             <div class="horizontalFlex centerFlex">
                 <div class="answerContainer">
@@ -367,7 +367,7 @@ color: var(--primary-light);
     <div id="explainer" class="absolute horizontalFlex centerFlex fullAbsolute" style="position: absolute; transition: all 0.15s ease-in-out; opacity: 0; pointer-events:none; z-index:1500; background-color: rgba(0, 0, 0, 0.5);">
         <div class="" style="z-index:500; border-radius: 15px; padding: 30px; width: 40vw; height:80vh; background-color: wheat; text-align: center; overflow-y: scroll;">
             <div style="width:100%; align-items: right; justify-content: right; display:flex;">
-                <img style="height: 30px; width: 30px; right:0;" src="assets/icons/closeCircle.svg" class="closeIcon" onclick="hideElement(this.parentNode.parentNode.parentNode)">
+                <img style="height: 30px; width: 30px; right:0;" src="../assets/icons/closeCircle.svg" class="closeIcon" onclick="hideElement(this.parentNode.parentNode.parentNode)">
             </div>
 
             
@@ -388,5 +388,5 @@ color: var(--primary-light);
     </div>
     
 </body>
-<script src="javascript/sidebar.js"></script>
+<script src="../javascript/sidebar.js"></script>
 </html>
