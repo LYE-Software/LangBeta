@@ -1,4 +1,26 @@
+// window.onerror = (a, b, c, d, e) => {
+//     console.error(e);
+//     showElement(document.getElementById("specificError"));
+//     hideElement(document.getElementById("noclickdiv"));
+//     document.getElementById("ErrorTextLocation").innerHTML = `
+//     We have encountered an error. Please report this using the feedback button on the homepage, as well as the error message below:
+//     ${a}
+//     `
+//     return true;
+// }
 
+// addEventListener("error", onerror);
+
+// function onerror(event){
+//     console.log("erroring!!");
+//     showElement(document.getElementById("specificError"));
+//     hideElement(document.getElementById("noclickdiv"));
+//     document.getElementById("ErrorTextLocation").innerHTML = `
+//     We have encountered an error. Please report this using the feedback button on the homepage, as well as the error message below:
+//     ${a}
+//     `
+//     return true;
+// }
 async function doPreviewAndLocal(){
     hideElement(document.getElementById("flashcardBox"))
     console.log("in dopreview")
@@ -140,16 +162,34 @@ async function doPreviewAndLocal(){
 function displaySheet(newSheet){
     for (var i = 0; i<newSheet.length; i++){
         if (newSheet.getNthTerm(i).isMulti){
-            makeMulti(newSheet.getNthTerm(i), i);
+            if (newSheet.getNthTerm(i).hasImage){
+                src = "https://backend.langstudy.tech/"+window.localStorage.getItem("usertoken")+"/image/get/"+newSheet.getNthTerm(i).imageSrc;
+            } else {
+                src = null;
+            }
+            makeMulti(newSheet.getNthTerm(i), i, src);
         } else{
-            makeSingle(newSheet.getNthTerm(i).term, newSheet.getNthTerm(i).answer);
+            if (newSheet.getNthTerm(i).hasImage){
+                src = "https://backend.langstudy.tech/"+window.localStorage.getItem("usertoken")+"/image/get/"+newSheet.getNthTerm(i).imageSrc;
+            } else {
+                src = null;
+            }
+            makeSingle(newSheet.getNthTerm(i).term, newSheet.getNthTerm(i).answer, src);
         }
     }
 }
 
 
-function makeSingle(term, def){
+function makeSingle(term, def, imgsrc){
+    if (imgsrc!= null){
+        doImage = "flex"
+    } else {
+        doImage = "none"
+    }
     var single = `
+    <div style="width:100%; height:100px; display:${doImage}; justify-content:center; align-items:center;">
+        <img src="${imgsrc}" style="max-height:100px;">
+    </div>
     <div class="termdef">
         <div>
             <div>${term}</div>
@@ -160,8 +200,16 @@ function makeSingle(term, def){
     document.getElementById("termsContainer").innerHTML+=single;
 }
 
-function makeMulti(multi, i){
+function makeMulti(multi, i, imgsrc){
+    if (imgsrc!= null){
+        doImage = "flex"
+    } else {
+        doImage = "none"
+    }
     var multiTemplate = `
+    <div style="width:100%; height:100px; display:${doImage}; justify-content:center; align-items:center;">
+        <img src="${imgsrc}" style="max-height:100px;">
+    </div>
     <div class="multiTermDef" id="${"multi"+i}">
         <div>${multi.question}</div>
         
@@ -253,3 +301,4 @@ function saveToLib(){
         xhr.send(JSON.stringify(data));
     }
 }
+
