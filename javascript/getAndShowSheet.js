@@ -34,7 +34,7 @@ async function doPreviewAndLocal(){
             document.getElementById('notOwned').style.opacity = 1;
         }
         document.getElementById("shareDisclaimer").style.display = "flex"
-        document.getElementById("shareBtn").style.display = ""
+        document.getElementById("saveBtn").style.display = ""
     
     } 
     //SHARED BACK
