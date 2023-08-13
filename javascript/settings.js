@@ -22,9 +22,9 @@ function stats(elem){
         last = window.localStorage.getItem("lastsheet")
     }
     var data = `
-    <p>You have been a Lang Study user for <strong>${date}.</strong></p>
     <p>You have <strong>${amt} Studysheets.</strong></p>
     <p>You last studied <strong>${last}</strong>.</p>
+    <p>More statistics coming soon!</p>
     `
     append(data)
 }

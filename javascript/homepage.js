@@ -23,7 +23,7 @@ async function getLibraryList(){
     window.localStorage.removeItem("sharedID");
     window.localStorage.removeItem("sharedSheet");
     window.localStorage.removeItem("ssID");
-    window.localStorage.removeItem("lastsheet");
+    
     
     window.localStorage.setItem("fullstudysheet", "");
     window.localStorage.setItem("chosenSheet", "")
@@ -104,13 +104,13 @@ async function getLibraryList(){
             username = json.username
         }
         console.warn("LIBRARY: "+library)
-        if(library == "[]"){
+        if(library == "[]"&& json.error != "session_invalid"){
             console.log("1")
              noStudySheets()
-        } else if (library == ""){
+        } else if (library == ""&& json.error != "session_invalid"){
             noStudySheets()
             console.log("2")
-        } else if (library == null){
+        } else if (library == null && json.error != "session_invalid"){
             noStudySheets()
             console.log("lib = null")
             console.log("3")
