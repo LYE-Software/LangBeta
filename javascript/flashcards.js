@@ -44,19 +44,19 @@ function flipCard(card){
         card.className = "flashcardContents cardFlip"
         setTimeout(function(){
             card.innerHTML = newSheet.getNthTerm(card.getAttribute("data-term")).answer
-        }, 500)
+        }, 125)
         card.setAttribute("data-state", "back")
         setTimeout(function(){
             card.className = "flashcardContents"
-        }, 1000)
+        }, 250)
     } else {
         card.className = "flashcardContents cardFlip"
         setTimeout(function(){
             card.innerHTML = newSheet.getNthTerm(card.getAttribute("data-term")).term
-        }, 500)
+        }, 125)
         setTimeout(function(){
             card.className = "flashcardContents"
-        }, 1000)
+        }, 250)
         card.setAttribute("data-state", "front")     
     }
 }

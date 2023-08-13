@@ -221,7 +221,7 @@ function checkSheet(){
 
 function doHints(){
     console.log("[FUNCTION CALL: DO HINTS]")
-    var userInput = document.getElementById("input").value.toLowerCase().trim();
+    var userInput = document.getElementById("input").value.toLowerCase();
     var toReturn;
     var correctAns;
     if (term.isMulti){
@@ -246,7 +246,7 @@ function doHints(){
     if (toReturn == correctAns){
         deactivate(document.getElementById("hint"))
     } 
-    document.getElementById("input").value = toReturn.toLowerCase().trim();
+    document.getElementById("input").value = toReturn.toLowerCase();
     return false;
     
 }
