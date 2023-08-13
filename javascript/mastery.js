@@ -225,9 +225,9 @@ function doHints(){
     var toReturn;
     var correctAns;
     if (term.isMulti){
-        var correctAns = term.answers[multiNum];  
+        var correctAns = term.answers[multiNum].toLowerCase();  
     } else {
-        var correctAns = term.answer;     
+        var correctAns = term.answer.toLowerCase();     
     }
     if (userInput == correctAns){
         return true;

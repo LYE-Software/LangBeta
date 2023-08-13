@@ -7,6 +7,7 @@ function review(term){
 }
 
 function write(term_, reviewing){
+    document.getElementById("term_image").style.display = "none";
     if (reviewing == null){
         reviewing = false;
     }
@@ -63,6 +64,7 @@ function checkWrite(){
 
 
 function multipleChoice(term_, arr){
+    document.getElementById("term_image_mcq").style.display = "none";
     document.getElementById("multchoice").style.display="flex"
     document.getElementById("questionheader").innerHTML = term_.term
     term = term_;
@@ -134,6 +136,7 @@ async function checkMulti(letter){
 }
 
 function learn(term_){
+    document.getElementById("term_image_learn").style.display = "none";
     term = term_;
     if (term.hasImage){
         let urlForImage = "https://backend.langstudy.tech/"+window.localStorage.getItem("usertoken")+"/image/get/"+term.imageSrc;
